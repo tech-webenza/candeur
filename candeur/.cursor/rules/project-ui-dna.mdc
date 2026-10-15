@@ -1,0 +1,177 @@
+---
+description: Core UI architecture, design and implementation rules for this project.
+alwaysApply: true
+---
+
+# Project UI DNA
+
+You are working on an existing production Next.js/React UI project.
+
+## Core principle
+
+Preserve the existing project's architecture, visual language, component patterns and design system.
+
+Before creating anything new:
+1. Inspect the existing implementation.
+2. Search for reusable components.
+3. Search for existing styles/tokens.
+4. Search for existing assets.
+5. Reuse existing patterns whenever possible.
+
+Do not create duplicate components when an equivalent component already exists.
+
+## UI implementation
+
+For UI work:
+
+- Match the provided design as accurately as possible.
+- Preserve exact typography hierarchy.
+- Preserve font family, font weight, font size and line height.
+- Preserve spacing, padding and margins.
+- Preserve border radius.
+- Preserve colors.
+- Preserve shadows.
+- Preserve image aspect ratios.
+- Preserve section ordering.
+- Preserve container widths.
+- Preserve alignment.
+- Preserve desktop and mobile behavior.
+
+Do not approximate values when the correct value can be determined from the design or existing project.
+
+## Site-wide body copy (`p`, `a`, `button`)
+
+Set in `app/globals.css` on `body.site-body` — **do not use `clamp()`** on these tags:
+
+- **Mobile** (&lt; 768px): `p` **18px**; `a` and `button` **16px**
+- **Tablet** (768px–1023px): `p` **20px**; `a` and `button` **18px**
+- **Desktop** (1024px+): `p` **1.25vw**; `a` and `button` **1.15vw**
+
+Use `--font-size-p` and `--font-size-interactive`. Route `page.css` handles headings and display type only; avoid per-page `font-size` on `p` / `a` / `button` for standard copy.
+
+## Responsive design
+
+Use the project's existing breakpoints and responsive patterns.
+
+Do not invent new breakpoints unless required.
+
+Every UI implementation must consider:
+- Desktop
+- Tablet
+- Mobile
+- Intermediate widths
+
+Avoid fixed widths that cause horizontal overflow.
+
+Prefer responsive CSS/layout techniques over JavaScript viewport detection.
+
+## Components
+
+Before creating a component:
+- Search the repository for similar components.
+- Reuse existing components where appropriate.
+- Extract a component only when it provides meaningful reuse or improves maintainability.
+
+Do not unnecessarily refactor unrelated code.
+
+## Assets
+
+Always inspect existing assets before creating replacements.
+
+Prefer:
+1. Existing project assets
+2. Existing icon/component libraries
+3. Existing SVGs
+4. New assets only when necessary
+
+Do not replace an existing asset with a visually similar approximation if the correct asset exists.
+
+## Styling
+
+**Default for new pages (especially Figma + ui-build):**
+
+- **Bootstrap 5** for layout, grid, and components.
+- **Per-page CSS** — each route has its own `page.css` (e.g. `app/<route>/page.css`) imported from that route's `page.tsx`. Page-specific rules stay there; do not dump page styles into `globals.css`.
+- **No Tailwind CSS** on new marketing/Figma-built pages — use Bootstrap classes and page-scoped CSS classes only.
+- **Lenis** smooth scroll, **WOW.js** text animation, **Embla** carousels — see `.cursor/skills/ui-build/references/embla-carousel.md` and `motion-and-interactions.md`.
+
+Full conventions: `.cursor/skills/ui-build/references/bootstrap-and-styling.md`.
+
+## Site container (all breakpoints)
+
+Use **one horizontal content width everywhere** (mobile, tablet, laptop, desktop):
+
+- Wrapper class: **`.delta-container`**
+- **`width: 95%`** (percentage of viewport), centered with auto margins
+- **Do not** use pixel `max-width` tiers (e.g. 1140px) for main page content
+- Header, footer, and every section use the same 95% container
+
+Define `.delta-container` in global CSS once; reuse on every page.
+
+## Figma / pixel-perfect builds
+
+When implementing from Figma with ui-build:
+
+1. Follow `.cursor/skills/ui-build/references/figma-to-page-workflow.md`.
+2. Match Figma typography, spacing, and colors in the route's `page.css`.
+3. Verify responsive behavior at mobile, tablet, laptop, and desktop.
+
+Do not mix Tailwind utilities into these pages.
+
+For legacy routes that already use another stack, preserve them unless the task is to rebuild the page.
+
+## Text animation (WOW.js)
+
+For marketing headlines and section copy:
+
+- **Desktop `h1` (short, line-based):** `h1.desktop-view` with each line in `overflow: hidden` and inner `copy wow fadeInUpRotate`; stagger `data-wow-delay` from `0.2s` (+0.1s per line).
+- **Mobile `h1`:** `h1.mobile-view wow fadeInUp` with full headline text (no per-line rotate).
+- **Desktop `h2` (longer, line-based):** `h2.desktop-view` with per-line `wow fadeInUpLessRotate` (no `copy` class).
+- **Mobile `h2`:** `h2.mobile-view wow fadeInUp` with full text.
+- **Paragraphs and other text:** `wow fadeInUp` on the tag with staggered `data-wow-delay`.
+- **`h3`, `p`, `a`, and `button`:** each gets `wow fadeInUp` (staggered delays)—animations start **only when scrolled into view** via `WowProvider` / `.wow-animated` (see wow-text-animation.md).
+- **Buttons:** add hover/active micro-interactions in route `page.css` (lift, shadow, chevron slide).
+
+CSS keyframes and class names: `.cursor/skills/ui-build/references/wow-text-animation.md`. Add those rules to global CSS when implementing pages.
+
+**Scroll word reveal** (pinned headline, muted → navy word-by-word on scroll): `.cursor/skills/ui-build/references/scroll-reveal-words.md` — use instead of WOW on that headline.
+
+## Existing functionality
+
+When modifying an existing page:
+- Preserve existing API calls.
+- Preserve existing business logic.
+- Preserve existing interactions.
+- Preserve SEO/metadata unless requested.
+- Preserve accessibility behavior.
+- Preserve animations unless they conflict with the requested change.
+
+Only change what is necessary.
+
+## Code quality
+
+- Use TypeScript.
+- Prefer functional React components.
+- Keep components maintainable.
+- Avoid unnecessary duplication.
+- Avoid unnecessary dependencies.
+- Do not rewrite working code merely for stylistic preference.
+
+## Validation
+
+After UI changes:
+1. Check TypeScript errors.
+2. Check lint/build errors when appropriate.
+3. Check responsive behavior.
+4. Check for broken assets.
+5. Check that existing functionality still works.
+
+## Design system sources
+
+Use these files as the source of truth (inspect repo; paths may be added as the app grows):
+
+- Global styles, WOW keyframes, `.delta-container`: @app/globals.css
+- Bootstrap 5: `bootstrap/dist/css/bootstrap.min.css` in root layout
+- Per-page styles: `app/<route>/page.css` next to `page.tsx`
+- Agent references: `.cursor/skills/ui-build/references/bootstrap-and-styling.md`, `project-ui-reference.md`
+- Shared components: search `components/` before creating duplicates

@@ -1,0 +1,30 @@
+---
+description: React and Next.js implementation conventions.
+globs:
+  - "**/*.tsx"
+  - "**/*.ts"
+  - "app/**/*"
+  - "components/**/*"
+---
+
+# React / Next.js Rules
+
+- Follow the existing Next.js architecture.
+- Use App Router conventions if the project uses App Router.
+- Prefer Server Components unless client-side behavior is required.
+- Use "use client" only when necessary.
+- Do not convert Server Components to Client Components unnecessarily.
+- Preserve existing data-fetching patterns.
+- Preserve existing route structure.
+- Use async server components where appropriate.
+- Reuse existing hooks.
+- Reuse existing UI components.
+- Do not create duplicate utility functions.
+- Preserve existing metadata and SEO implementation.
+- Keep page components focused on composition.
+- Move reusable UI into components when appropriate.
+- WOW scroll text: `WowProvider` + `lib/wow/scrollAnimations.ts`; animations run only when `.wow` enters the viewport (`.wow-animated`). Markup per `.cursor/skills/ui-build/references/wow-text-animation.md` (desktop line splits vs mobile `fadeInUp`; `h3`/`p`/`a`/`button` each use `wow fadeInUp` with staggered `data-wow-delay`). Lenis: `onScroll` → `scanPendingWowElements()`.
+- Scroll word reveal (pinned vision headlines): `.cursor/skills/ui-build/references/scroll-reveal-words.md` — `IntroScrollReveal` + `lib/scroll/wordRevealProgress.ts`; Lenis `useLenis` + scroll fallback; not WOW on the same copy.
+- New Figma/ui-build pages: **Bootstrap 5** + route-level **`page.css`**; **no Tailwind** on those pages; wrap content in **`.delta-container`** at **95%** width on all breakpoints. See `.cursor/skills/ui-build/references/bootstrap-and-styling.md`.
+- Site-wide `p` / `a` / `button` font sizes live in `globals.css` only (mobile 18px/16px, tablet 20px/18px, desktop 1.25vw/1.15vw) — no `clamp()` on those tags.
+- Import page CSS in the route's `page.tsx`: `import "./page.css"`.

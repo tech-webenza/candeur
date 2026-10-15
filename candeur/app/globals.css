@@ -1,0 +1,265 @@
+:root {
+  --forest: #203c30;
+  --deep: #142b22;
+  --paper: #f5f4ed;
+  --sage: #e4e9dc;
+  --ink: #23382d;
+  --muted: #586453;
+  --line: #bcc5b2;
+  --red: #943f30;
+  --serif: "Inria Serif", "Source Serif 4", Georgia, serif;
+  --sans: Inter, system-ui, Arial, sans-serif;
+  --display: "Source Serif 4", "Inria Serif", Georgia, serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-size-p: 18px;
+  --font-size-interactive: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: #75846b var(--paper);
+}
+
+body.site-body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--sans);
+  font-size: var(--font-size-p);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.site-body p {
+  font-size: var(--font-size-p);
+}
+
+body.site-body a,
+body.site-body button {
+  font-size: var(--font-size-interactive);
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --font-size-p: 20px;
+    --font-size-interactive: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --font-size-p: 1.25vw;
+    --font-size-interactive: 1.15vw;
+  }
+}
+
+.delta-container {
+  width: 90%;
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.delta-container.container,
+.container.delta-container {
+  width: 93%;
+  max-width: none;
+}
+
+::selection {
+  background: #cedabc;
+  color: #142b22;
+}
+
+button,
+input,
+a,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  touch-action: manipulation;
+}
+
+button {
+  cursor: pointer;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 5px;
+}
+
+button,
+a,
+input,
+select {
+  outline-offset: 5px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #b88443;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 400;
+  font-family: var(--serif);
+}
+
+h1,
+h2 {
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+em {
+  font-style: normal;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.desktop-view {
+  display: none;
+}
+
+.mobile-view {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .desktop-view {
+    display: block;
+  }
+  .mobile-view {
+    display: none;
+  }
+}
+
+/* WOW scroll text */
+.wow {
+  opacity: 0;
+  visibility: hidden;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.wow.wow-animated {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.wow.wow-reduced {
+  opacity: 1;
+  visibility: visible;
+  animation: none !important;
+}
+
+@-webkit-keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(25px);
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUpRotate {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes fadeInUpLessRotate {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.fadeInUpRotate {
+  animation-name: fadeInUpRotate;
+  animation-duration: 0.8s !important;
+}
+
+.fadeInUpLessRotate {
+  animation-name: fadeInUpLessRotate;
+  animation-duration: 0.8s !important;
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+  animation-duration: 1.3s !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

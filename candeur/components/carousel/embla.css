@@ -1,0 +1,41 @@
+.embla {
+  --embla-slide-spacing: 1rem;
+  --embla-slide-size: 100%;
+  overflow: hidden;
+}
+
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  touch-action: pan-y;
+  margin-left: calc(var(--embla-slide-spacing) * -1);
+}
+
+.embla__slide {
+  flex: 0 0 var(--embla-slide-size);
+  min-width: 0;
+  padding-left: var(--embla-slide-spacing);
+}
+
+.embla-parallax {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.embla-parallax__layer {
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+}
+
+.embla-parallax__layer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

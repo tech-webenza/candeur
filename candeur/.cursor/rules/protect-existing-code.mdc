@@ -1,0 +1,24 @@
+---
+description: Protect existing functionality and prevent unnecessary rewrites.
+alwaysApply: true
+---
+
+# Protect Existing Code
+
+When modifying existing code:
+
+- Do not rewrite working components unnecessarily.
+- Do not change unrelated files.
+- Do not change API contracts unless requested.
+- Do not change backend code for a frontend-only request.
+- Do not replace existing libraries without a reason.
+- Do not remove existing animations unless requested.
+- Do not remove existing responsive behavior.
+- Do not rename components unnecessarily.
+- Do not change routing unnecessarily.
+- Do not delete assets that appear unused without verifying references.
+- Do not modify global styles for a local UI problem unless required.
+- Do not introduce duplicate components.
+- Do not create duplicate CSS utilities.
+- On Bootstrap / ui-build pages: do not add Tailwind classes; change that route's `page.css` instead of unrelated globals.
+- Do not change the site-wide **95%** `.delta-container` pattern to pixel max-widths without explicit request.
