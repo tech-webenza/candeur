@@ -461,7 +461,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
   setIsSubmitting(true)
 
   try {
-    const response = await fetch("/api/salesforce-lead", {
+    const response = await fetch("/candeur/api/salesforce-lead", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
