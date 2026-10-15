@@ -447,6 +447,13 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     if (submitted) success.current?.focus();
   }, [submitted]);
 
+  const resetAll=()=>{
+    setPriceRange("")
+    setName("")
+    setPhone("")
+    setConsent(false)
+  }
+
   async function submit(e) {
   e.preventDefault();
 
@@ -494,6 +501,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     setError("");
     setSubmitted(true);
     setIsSubmitting(false)
+    resetAll()
     // deliverFile(file);
 
   } catch (error) {
