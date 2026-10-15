@@ -8,7 +8,7 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const nextConfig = {
   reactStrictMode: true,
   output: "export",
-  basePath: "/candeur",
+  // basePath: "/candeur",
 };
 
 export default nextConfig;

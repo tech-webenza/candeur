@@ -434,7 +434,7 @@ body.site-menu-open {
 .hero-film {
   position: absolute;
   inset: 0;
-  background: url("/candeur/media/hero-frames/frame-001.webp") center / cover;
+  background: url("/media/hero-frames/frame-001.webp") center / cover;
 }
 
 .hero-film canvas {

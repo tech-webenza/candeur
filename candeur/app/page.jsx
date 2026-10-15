@@ -34,7 +34,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 const ORIGIN = "17.4707404,78.4066345";
 
 // Opened in a new tab after any enquiry form other than "Download Plan".
-const BROCHURE = { url: "/candeur/pdfs/candeur-kukatpally-brochure.pdf" };
+const BROCHURE = { url: "/pdfs/candeur-kukatpally-brochure.pdf" };
 
 
 
@@ -44,7 +44,7 @@ const amenities = [
   {
     name: "Nature & outdoors",
     icon: Leaf,
-    image: "/candeur/images/figma/amenity-nature.webp",
+    image: "/images/figma/amenity-nature.webp",
     alt: "Illustrative photograph of sunlight through a green tree canopy",
     title: "Your Own Little Escape into Nature.",
     copy: " Discover thoughtfully planned green spaces that turn simple outdoor moments into something special.",
@@ -58,7 +58,7 @@ const amenities = [
   {
     name: "Family & community",
     icon: Users,
-    image: "/candeur/images/figma/amenity-family.webp",
+    image: "/images/figma/amenity-family.webp",
     alt: "Illustrative photograph of an Indian family outdoors",
     title: "Where Togetherness Finds More Room to Grow.",
     copy: " From playful afternoons to meaningful celebrations, discover spaces that bring families and neighbours closer.",
@@ -72,7 +72,7 @@ const amenities = [
   {
     name: "Sports & fitness",
     icon: TennisBall,
-    image: "/candeur/images/figma/amenity-sport.webp",
+    image: "/images/figma/amenity-sport.webp",
     alt: "Illustrative photograph of a racket and ball on a sunlit court",
     title: "More Ways to Play. More Reasons to Thrive.",
     copy: " Make room for the sports you love, new interests to explore and an active life that feels effortless.",
@@ -88,7 +88,7 @@ const amenities = [
   {
     name: "Everyday convenience",
     icon: Coffee,
-    image: "/candeur/images/figma/amenity-everyday.webp",
+    image: "/images/figma/amenity-everyday.webp",
     alt: "Illustrative photograph of a woman working in a naturally lit lounge",
     title: "The Luxury of Having Everything Within Reach.",
     copy: " Thoughtfully planned conveniences that simplify everyday routines, leaving you with more time for what truly matters.",
@@ -102,7 +102,7 @@ const amenities = [
   {
     name: "Wellness",
     icon: SwimmingPool,
-    image: "/candeur/images/figma/amenity-wellness.webp",
+    image: "/images/figma/amenity-wellness.webp",
     alt: "Illustrative photograph of pool water, natural stone and soft daylight",
     title: "Where Every Day Finds Its Balance.",
     copy: " From moments of stillness to refreshing wellness rituals, embrace a lifestyle that nurtures your mind and body.",
@@ -157,62 +157,62 @@ const neighbourhoods = [
 ];
 
 const gallerySlides = [
-  { id: "g1", label: "Open Green Area", src: "/candeur/images/figma/gallery/Open-Green-Area.webp", alt: "Open green landscaped area" },
-  { id: "g6", label: "Pool", src: "/candeur/images/figma/gallery/pool.webp", alt: "Swimming pool area" },
-  { id: "g12", label: "Senior Citizen Clubhouse", src: "/candeur/images/figma/gallery/Senior-Citizen-Clubhouse.webp", alt: "Senior citizen clubhouse" },
-  { id: "g3", label: "Community Space", src: "/candeur/images/figma/gallery/Community-Space.webp", alt: "Community outdoor space" },
-  { id: "g5", label: "Sports Courts", src: "/candeur/images/figma/gallery/Sports-Courts.webp", alt: "Sports courts" },
-  { id: "g7", label: "Kids Play Area", src: "/candeur/images/figma/gallery/Kids-Play-Area.webp", alt: "Kids play area" },
-  { id: "g2", label: "Elevated Walkway", src: "/candeur/images/figma/gallery/Elevated-Walkway.webp", alt: "Elevated walkway through greenery" },
-  // { id: "g4", label: "Golf", src: "/candeur/images/figma/gallery/Golf.png", alt: "Golf amenity illustration" },
-  // { id: "g8", label: "10 ft Elevated Podium", src: "/candeur/images/figma/gallery/10ft-Elevated-Podium.png", alt: "Elevated podium landscape" },
-  // { id: "g9", label: "Clubhouse", src: "/candeur/images/figma/gallery/Clubhouse.png", alt: "Clubhouse exterior" },
-  // { id: "g10", label: "Rooftop", src: "/candeur/images/figma/gallery/Rooftop.png", alt: "Rooftop amenity" },
-  // { id: "g11", label: "Central Courtyard", src: "/candeur/images/figma/gallery/Central-Courtyard.png", alt: "Central courtyard" },
-  // { id: "g13", label: "EV Charging", src: "/candeur/images/figma/gallery/EV-Charging.png", alt: "EV charging area" },
-  // { id: "g14", label: "Vehicle Free Zone", src: "/candeur/images/figma/gallery/Vehicle-Free-Zone.png", alt: "Vehicle free zone" },
+  { id: "g1", label: "Open Green Area", src: "/images/figma/gallery/Open-Green-Area.webp", alt: "Open green landscaped area" },
+  { id: "g6", label: "Pool", src: "/images/figma/gallery/pool.webp", alt: "Swimming pool area" },
+  { id: "g12", label: "Senior Citizen Clubhouse", src: "/images/figma/gallery/Senior-Citizen-Clubhouse.webp", alt: "Senior citizen clubhouse" },
+  { id: "g3", label: "Community Space", src: "/images/figma/gallery/Community-Space.webp", alt: "Community outdoor space" },
+  { id: "g5", label: "Sports Courts", src: "/images/figma/gallery/Sports-Courts.webp", alt: "Sports courts" },
+  { id: "g7", label: "Kids Play Area", src: "/images/figma/gallery/Kids-Play-Area.webp", alt: "Kids play area" },
+  { id: "g2", label: "Elevated Walkway", src: "/images/figma/gallery/Elevated-Walkway.webp", alt: "Elevated walkway through greenery" },
+  // { id: "g4", label: "Golf", src: "/images/figma/gallery/Golf.png", alt: "Golf amenity illustration" },
+  // { id: "g8", label: "10 ft Elevated Podium", src: "/images/figma/gallery/10ft-Elevated-Podium.png", alt: "Elevated podium landscape" },
+  // { id: "g9", label: "Clubhouse", src: "/images/figma/gallery/Clubhouse.png", alt: "Clubhouse exterior" },
+  // { id: "g10", label: "Rooftop", src: "/images/figma/gallery/Rooftop.png", alt: "Rooftop amenity" },
+  // { id: "g11", label: "Central Courtyard", src: "/images/figma/gallery/Central-Courtyard.png", alt: "Central courtyard" },
+  // { id: "g13", label: "EV Charging", src: "/images/figma/gallery/EV-Charging.png", alt: "EV charging area" },
+  // { id: "g14", label: "Vehicle Free Zone", src: "/images/figma/gallery/Vehicle-Free-Zone.png", alt: "Vehicle free zone" },
 ];
 
 const trustVisualSlides = [
   {
     id: "tv4",
-    src: "/candeur/images/trust/candeur-40.webp",
+    src: "/images/trust/candeur-40.webp",
     alt: "Candeur 40 community entrance",
     tag: "Candeur 40",
   },
   {
     id: "tv6",
-    src: "/candeur/images/trust/candeur-crescent.webp",
+    src: "/images/trust/candeur-crescent.webp",
     alt: "Candeur Crescent pool at dusk",
     tag: "Candeur Crescent",
   },
   {
     id: "tv1",
-    src: "/candeur/images/trust/candeur-eternia.webp",
+    src: "/images/trust/candeur-eternia.webp",
     alt: "Candeur Eternia main entrance",
     tag: "Candeur Eternia",
   },
   {
     id: "tv3",
-    src: "/candeur/images/trust/clubhouse-view.webp",
+    src: "/images/trust/clubhouse-view.webp",
     alt: "Green facade residential tower",
     tag: "Candeur Lakescape",
   },
   {
     id: "tv2",
-    src: "/candeur/images/trust/candeur-skyline-entrance.webp",
+    src: "/images/trust/candeur-skyline-entrance.webp",
     alt: "Candeur Skyline entrance arch",
     tag: "Candeur Skyline",
   },
   {
     id: "tv5",
-    src: "/candeur/images/trust/rooftop-amenities.webp",
+    src: "/images/trust/rooftop-amenities.webp",
     alt: "Rooftop pool and amenities",
     tag: "Candeur Twins",
   },
   // {
   //   id: "tv7",
-  //   src: "/candeur/images/trust/candeur-skyline-arch.jpg",
+  //   src: "/images/trust/candeur-skyline-arch.jpg",
   //   alt: "Candeur Skyline gateway",
   //   tag: "Candeur Skyline",
   // },
@@ -221,68 +221,68 @@ const trustVisualSlides = [
 const floorPlans = [
   {
     id: "fp1",
-    src: "/candeur/images/figma/floor-plan-export.png",
+    src: "/images/figma/floor-plan-export.png",
     alt: "1,552 sq. ft. 3 BHK floor plan preview",
     title: "Floor plans",
     detail: "1550 - 2150 sq. ft. spaces",
-    file: { url: "/candeur/pdfs/plans/3bhk-1550-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1550-sqft.pdf", save: true },
+    file: { url: "/pdfs/plans/3bhk-1550-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1550-sqft.pdf", save: true },
     // detail: "2 toilets | 2 balconies | 1 utility",
   },
   {
     id: "fp2",
-    src: "/candeur/images/figma/floor-plan-export.png",
+    src: "/images/figma/floor-plan-export.png",
     alt: "Alternate 3 BHK floor plan preview",
     title: "Master plans",
     detail: "",
-    file: { url: "/candeur/pdfs/plans/3bhk-1565-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1565-sqft.pdf", save: true },
+    file: { url: "/pdfs/plans/3bhk-1565-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1565-sqft.pdf", save: true },
     // detail: "3 toilets | 2 balconies | 1 utility",
   },
   // {
   //   id: "fp3",
-  //   src: "/candeur/images/figma/floor-plan-export.png",
+  //   src: "/images/figma/floor-plan-export.png",
   //   alt: "Alternate 3 BHK floor plan preview",
   //   title: "1,575 sq. ft. 3bhk",
-  //   file: { url: "/candeur/pdfs/plans/3bhk-1575-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1575-sqft.pdf", save: true },
+  //   file: { url: "/pdfs/plans/3bhk-1575-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1575-sqft.pdf", save: true },
   //   // detail: "3 toilets | 2 balconies | 1 utility",
   // },
   // {
   //   id: "fp4",
-  //   src: "/candeur/images/figma/floor-plan-export.png",
+  //   src: "/images/figma/floor-plan-export.png",
   //   alt: "Alternate 3 BHK floor plan preview",
   //   title: "1,585 sq. ft. 3bhk",
-  //   file: { url: "/candeur/pdfs/plans/3bhk-1585-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1585-sqft.pdf", save: true },
+  //   file: { url: "/pdfs/plans/3bhk-1585-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1585-sqft.pdf", save: true },
   //   // detail: "3 toilets | 2 balconies | 1 utility",
   // },
   // {
   //   id: "fp5",
-  //   src: "/candeur/images/figma/floor-plan-export.png",
+  //   src: "/images/figma/floor-plan-export.png",
   //   alt: "Alternate 3 BHK floor plan preview",
   //   title: "1,830 sq. ft. 3bhk",
-  //   file: { url: "/candeur/pdfs/plans/3bhk-1830-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1830-sqft.pdf", save: true },
+  //   file: { url: "/pdfs/plans/3bhk-1830-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1830-sqft.pdf", save: true },
   //   // detail: "3 toilets | 2 balconies | 1 utility",
   // },
   // {
   //   id: "fp6",
-  //   src: "/candeur/images/figma/floor-plan-export.png",
+  //   src: "/images/figma/floor-plan-export.png",
   //   alt: "Alternate 3 BHK floor plan preview",
   //   title: "1,880 sq. ft. 3bhk",
-  //   file: { url: "/candeur/pdfs/plans/3bhk-1880-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1880-sqft.pdf", save: true },
+  //   file: { url: "/pdfs/plans/3bhk-1880-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1880-sqft.pdf", save: true },
   //   // detail: "3 toilets | 2 balconies | 1 utility",
   // },
   // {
   //   id: "fp7",
-  //   src: "/candeur/images/figma/floor-plan-export.png",
+  //   src: "/images/figma/floor-plan-export.png",
   //   alt: "Alternate 3 BHK floor plan preview",
   //   title: "2,150 sq. ft. 3bhk",
-  //   file: { url: "/candeur/pdfs/plans/3bhk-2150-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-2150-sqft.pdf", save: true },
+  //   file: { url: "/pdfs/plans/3bhk-2150-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-2150-sqft.pdf", save: true },
   //   // detail: "3 toilets | 2 balconies | 1 utility",
   // },
   // {
   //   id: "fp8",
-  //   src: "/candeur/images/figma/floor-plan-export.png",
+  //   src: "/images/figma/floor-plan-export.png",
   //   alt: "Alternate 3 BHK floor plan preview",
   //   title: "2,050 sq. ft. 3bhk",
-  //   file: { url: "/candeur/pdfs/plans/3bhk-2050-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-2050-sqft.pdf", save: true },
+  //   file: { url: "/pdfs/plans/3bhk-2050-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-2050-sqft.pdf", save: true },
   //   // detail: "3 toilets | 2 balconies | 1 utility",
   // },
 ];
@@ -346,7 +346,7 @@ const PRICE_RANGES = [
 function Brand({ light = false }) {
   return (
     <a className={`brand ${light ? "brand--light" : ""}`} href="#top" aria-label="Candeur home">
-      <img src="/candeur/images/logo.png" alt="Candeur Home" />
+      <img src="/images/logo.png" alt="Candeur Home" />
     </a>
   );
 }
@@ -468,7 +468,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
   setIsSubmitting(true)
 
   try {
-    const response = await fetch("/candeur/api/salesforce-lead", {
+    const response = await fetch("/api/salesforce-lead", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -744,7 +744,7 @@ function Neighbourhood() {
   return (
     <section className="neighbourhood section-pad" id="location">
       <div className="neighbourhood__bg" aria-hidden="true">
-        <img src="/candeur/images/figma/neighbourhood/topo-bg.png" alt="" />
+        <img src="/images/figma/neighbourhood/topo-bg.png" alt="" />
       </div>
       <div className="delta-container">
         <div className="section-heading section-heading--split">
@@ -996,7 +996,7 @@ export default function Home() {
             resolve();
           };
           image.onerror = resolve;
-          image.src = `/candeur/media/hero-frames/frame-${String(i + 1).padStart(3, "0")}.webp`;
+          image.src = `/media/hero-frames/frame-${String(i + 1).padStart(3, "0")}.webp`;
         });
 
       load(0);

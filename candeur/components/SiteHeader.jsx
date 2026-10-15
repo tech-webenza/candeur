@@ -52,11 +52,11 @@ export default function SiteHeader({ onBrochureClick }) {
                 onClick={toggleMenu}
               >
                 <span className="site-header__menu-icon" aria-hidden="true">
-                  <img src="/candeur/images/Ham-menu.png" alt="Menu" width={24} height={24} />
+                  <img src="/images/Ham-menu.png" alt="Menu" width={24} height={24} />
                 </span>
               </button>
               <a className="site-header__logo brand brand--light" href="#top" aria-label="Candeur home">
-                <img src="/candeur/images/logo.png" alt="Candeur" width={175} height={44} />
+                <img src="/images/logo.png" alt="Candeur" width={175} height={44} />
               </a>
             </div>
             <a className="site-header__brochure cta" href="#" onClick={openBrochure} aria-haspopup="dialog">
