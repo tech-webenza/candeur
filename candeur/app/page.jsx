@@ -433,56 +433,68 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
   const [error, setError] = useState("");
   const success = useRef(null);
   const [ready, setReady] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => setReady(true), []);
   useEffect(() => {
     if (submitted) success.current?.focus();
   }, [submitted]);
 
-  async function submit (e) {
-    e.preventDefault();
-    if (name.trim().length < 2 || !/^[6-9]\d{9}$/.test(phone)) {
-      setError("Enter your name and a valid 10-digit Indian mobile number.");
-      return;
-    }
-    if (!priceRange) {
-      setError("Please select a price range.");
-      return;
-    }
-    if (!consent) {
-      setError("Please provide consent to continue.");
-      return;
-    }
-    try {
-      const response = await fetch("/api/salesforce-lead", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: name.trim(),
-          phone,
-          priceRange,
-          email,
-        }),
-      });
+  async function submit(e) {
+  e.preventDefault();
 
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        setError(result.message || "Failed to submit your enquiry.");
-        return;
-      }
-
-      deliverFile(file);
-      setSubmitted(true);
-    } catch {
-      setError("Unable to submit your enquiry. Please try again.");
-    }
-    setError("");
-    deliverFile(file);
-    setSubmitted(true);
+  if (name.trim().length < 2 || !/^[6-9]\d{9}$/.test(phone)) {
+    setError("Enter your name and a valid 10-digit Indian mobile number.");
+    return;
   }
+
+  if (!priceRange) {
+    setError("Please select a price range.");
+    return;
+  }
+
+  if (!consent) {
+    setError("Please provide consent to continue.");
+    return;
+  }
+
+  setIsSubmitting(true)
+
+  try {
+    const response = await fetch("/api/salesforce-lead", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name.trim(),
+        phone,
+        priceRange,
+        email,
+      }),
+    });
+
+    const result = await response.json();
+
+    // Stop if Salesforce submission fails
+    if (!response.ok || !result.success) {
+      setError(result.message || "Failed to submit your enquiry.");
+      setIsSubmitting(false)
+      return;
+    }
+
+    // Only execute when Salesforce submission succeeds
+    setError("");
+    setSubmitted(true);
+    setIsSubmitting(false)
+    // deliverFile(file);
+
+  } catch (error) {
+    console.error("Lead submission error:", error);
+    setError("Unable to submit your enquiry. Please try again.");
+    setIsSubmitting(false)
+  }
+}
 
   return (
     <div className="lead-panel" id={id} tabIndex={-1}>
@@ -573,7 +585,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
                 {error}
               </p>
             )}
-            <button className="cta submit" type="submit">
+            <button className={`cta submit ${isSubmitting && "disabled-btn" }`} type="submit">
               Get priority launch access
             </button>
           </fieldset>

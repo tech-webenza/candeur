@@ -12,6 +12,12 @@
   width: 100%;
 }
 
+.disabled-btn{
+   opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .embla__container {
   display: flex;
   touch-action: pan-y;
