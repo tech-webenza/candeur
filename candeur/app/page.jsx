@@ -110,42 +110,49 @@ const amenities = [
   },
 ];
 
-const placesFor = (names) =>
-  names.map((name) => ({ name, query: `${name} Kukatpally Hyderabad` }));
+// Each entry: { name, distance, query? }. Leave distance empty to show "To be verified".
+const placesFor = (places) =>
+  places.map(({ name, distance = "", query = `${name} Kukatpally Hyderabad` }) => ({ name, distance, query }));
 
 const neighbourhoods = [
   {
     name: "Metro",
     icon: Train,
-    places: ["Kukatpally Metro", "Bharat Nagar Metro", "Balanagar Metro"].map((name) => ({
-      name,
-      query: `${name} station Hyderabad`,
-      distance: "Within 2 km",
-      note: "Client-supplied estimate for three Metro stations; exact station and road route to be verified.",
-    })),
+    places: placesFor([
+      { name: "Kukatpally Metro", distance: "Within 2 km", query: "Kukatpally Metro station Hyderabad" },
+      { name: "Bharat Nagar Metro", distance: "Within 3 km", query: "Bharat Nagar Metro station Hyderabad" },
+      { name: "Balanagar Metro", distance: "Within 3 km", query: "Balanagar Metro station Hyderabad" },
+    ]),
   },
   {
     name: "Schools",
     icon: GraduationCap,
-    places: placesFor(["Meridian School", "The Creek School", "EuroSchool", "Delhi Public School"]),
+    places: placesFor([
+      { name: "Meridian School", distance: "Within 6 km" },
+      { name: "The Creek School", distance: "Within 2 km" },
+      { name: "EuroSchool", distance: "Within 4 km" },
+      { name: "Delhi Public School", distance: "Within 12 km" },
+    ]),
   },
   {
     name: "Hospitals",
     icon: Heartbeat,
-    places: [
-      {
-        name: "Yashoda Hospitals",
-        query: "Yashoda Hospitals Hitec City Hyderabad",
-        distance: "2–3 km",
-        note: "Client-supplied distance range; exact branch and road route to be verified.",
-      },
-      ...placesFor(["OMNI Hospitals", "Remedy Hospitals", "SINDHU Hospitals"]),
-    ],
+    places: placesFor([
+      { name: "Yashoda Hospitals", distance: "Within 7 km", query: "Yashoda Hospitals Hitec City Hyderabad" },
+      { name: "OMNI Hospitals", distance: "Within 3 km" },
+      { name: "Remedy Hospitals", distance: "Within 5 km" },
+      { name: "SINDHU Hospitals", distance: "Within 7 km" },
+    ]),
   },
   {
     name: "Shopping",
     icon: ShoppingBag,
-    places: placesFor(["Lakeshore Mall", "Forum Mall", "Manjeera Mall", "Ashoka One Mall"]),
+    places: placesFor([
+      { name: "Lakeshore Mall", distance: "Within 3 km" },
+      { name: "Forum Mall", distance: "Within 1 km" },
+      { name: "Manjeera Mall", distance: "Within 6 km" },
+      { name: "Ashoka One Mall", distance: "Within 3 km" },
+    ]),
   },
 ];
 
