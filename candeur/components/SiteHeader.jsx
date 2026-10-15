@@ -60,7 +60,7 @@ export default function SiteHeader({ onBrochureClick }) {
               </a>
             </div>
             <a className="site-header__brochure cta" href="#" onClick={openBrochure} aria-haspopup="dialog">
-              Download Brochure
+              Get Priority Launch Access
             </a>
           </div>
         </div>

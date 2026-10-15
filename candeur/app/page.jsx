@@ -1293,7 +1293,7 @@ export default function Home() {
         <section className="faq section-pad" id="faqs">
           <div className="delta-container">
             <div className="faq-layout">
-              <div>
+              <div className="faq-intro">
                 <h2 className="desktop-view">
                   <div style={{ overflow: "hidden" }}>
                     <div className="wow fadeInUpLessRotate" data-wow-delay="0.2s">

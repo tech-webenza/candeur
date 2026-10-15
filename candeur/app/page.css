@@ -280,7 +280,7 @@ body.site-menu-open {
   text-transform: none;
   letter-spacing: 0;
   font-size: 1.3vw !important;
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 .site-header__brochure:hover {
@@ -1547,6 +1547,14 @@ section#location h2 {
   gap: 9vw;
 }
 
+/* Heading stays pinned while the FAQ list scrolls past */
+.faq-intro {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+
 .faq h2 {
   font-size: clamp(44px, 2.9vw, 76px);
   line-height: 122%;
@@ -2255,6 +2263,10 @@ div#enquire-modal {
   .faq-layout {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+
+  .faq-intro {
+    position: unset !important;
   }
 
   .footer {
