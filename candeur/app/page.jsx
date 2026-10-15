@@ -451,6 +451,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     setPriceRange("")
     setName("")
     setPhone("")
+    setEmail("")
     setConsent(false)
   }
 
