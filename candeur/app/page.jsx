@@ -447,6 +447,13 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     if (submitted) success.current?.focus();
   }, [submitted]);
 
+  const resetAll=()=>{
+    setPriceRange("")
+    setName("")
+    setPhone("")
+    setConsent(false)
+  }
+
   async function submit(e) {
   e.preventDefault();
 
@@ -468,7 +475,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
   setIsSubmitting(true)
 
   try {
-    const response = await fetch("/candeur/api/salesforce-lead", {
+    const response = await fetch("/api/salesforce-lead", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -494,6 +501,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     setError("");
     setSubmitted(true);
     setIsSubmitting(false)
+    resetAll()
     // deliverFile(file);
 
   } catch (error) {

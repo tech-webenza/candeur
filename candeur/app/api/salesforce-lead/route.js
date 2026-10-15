@@ -1,7 +1,31 @@
 import { NextResponse } from "next/server";
 
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
 export async function POST(request) {
   try {
+    if (!process.env.SALESFORCE_CLIENT_ID || !process.env.SALESFORCE_CLIENT_SECRET) {
+      console.error(
+        "Salesforce Error: SALESFORCE_CLIENT_ID or SALESFORCE_CLIENT_SECRET environment variable is not defined."
+      );
+      return NextResponse.json(
+        { success: false, message: "Server configuration error: missing credentials." },
+        {
+          status: 500,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
+      );
+    }
+
     const { name, phone, priceRange, email } = await request.json();
 
     // 1. Generate Salesforce access token
@@ -28,7 +52,10 @@ export async function POST(request) {
 
       return NextResponse.json(
         { success: false, message: "Authentication failed." },
-        { status: 502 }
+        {
+          status: 502,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
       );
     }
 
@@ -73,20 +100,31 @@ export async function POST(request) {
           success: false,
           message: "Unable to submit your enquiry. Please try again.",
         },
-        { status: 502 }
+        {
+          status: 502,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        }
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      message: "Lead created successfully.",
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Lead created successfully.",
+      },
+      {
+        headers: { "Access-Control-Allow-Origin": "*" },
+      }
+    );
   } catch (error) {
     console.error("Salesforce integration error:", error);
 
     return NextResponse.json(
       { success: false, message: "Something went wrong." },
-      { status: 500 }
+      {
+        status: 500,
+        headers: { "Access-Control-Allow-Origin": "*" },
+      }
     );
   }
 }
