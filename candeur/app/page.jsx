@@ -499,6 +499,13 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     }
 
     // Only execute when Salesforce submission succeeds
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "candeur_kukataplly_form_submission",
+      form_name: "Get_the_first_look.",
+      button_name: "Get priority launch access",
+    });
+
     setError("");
     setSubmitted(true);
     setIsSubmitting(false)
@@ -613,14 +620,11 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
             Thank you, {name.trim().split(" ")[0]}.
           </h2>
           <p>
-            {file.save ? "Your download has started." : "The brochure has opened in a new tab."}{" "}
-            <a href={file.url} target="_blank" rel="noopener noreferrer" download={file.save ? file.fileName : undefined}>
-              Didn’t get it? Click here.
-            </a>
+            Your enquiry has been successfully submitted. Our team will connect with you shortly to assist you with the project details and answer your questions.
           </p>
-          <button className="text-button" onClick={() => setSubmitted(false)}>
+          {/* <button className="text-button" onClick={() => setSubmitted(false)}>
             Back to enquiry
-          </button>
+          </button> */}
         </div>
       )}
       {/* <p className="demo-note">
