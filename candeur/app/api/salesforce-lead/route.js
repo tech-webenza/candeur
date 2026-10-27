@@ -72,7 +72,7 @@ export async function POST(request) {
       subSource: "Google_Search",
       source: "Google",
       project: "Novo Gardenia",
-      channel: "Twins",
+      channel: "Webenza",
       firstEnquirySource: "Google",
       whatsAppNumber: phone,
     };

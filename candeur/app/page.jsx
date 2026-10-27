@@ -337,10 +337,10 @@ const faqs = [
 ];
 
 const PRICE_RANGES = [
-  "₹1.3 Cr – ₹1.6 Cr",
-  "₹1.6 Cr – ₹2 Cr",
-  "₹2 Cr – ₹2.5 Cr",
-  "₹2.5 Cr+",
+  "₹1.3 Cr – ₹1.5 Cr",
+  "₹1.6 Cr – ₹1.8 Cr",
+  "₹1.9 Cr – ₹2 Cr",
+  "<₹2 Cr",
 ];
 
 function Brand({ light = false }) {
@@ -376,8 +376,23 @@ function EnquireLink({
 
 
 function Tabs({ label, entries, selected, onSelect, prefix, variant = "default" }) {
+  const row = useRef(null);
+
+  // Keep the active tab visible when the row scrolls horizontally (mobile).
+  useEffect(() => {
+    const el = row.current;
+    const btn = el?.children[selected];
+    if (!btn || el.scrollWidth <= el.clientWidth) return;
+    const r = el.getBoundingClientRect();
+    const b = btn.getBoundingClientRect();
+    el.scrollTo({
+      left: el.scrollLeft + (b.left - r.left) - (el.clientWidth - b.width) / 2,
+      behavior: "smooth",
+    });
+  }, [selected]);
+
   return (
-    <div className={`tab-row tab-row--${variant}`} role="tablist" aria-label={label}>
+    <div ref={row} className={`tab-row tab-row--${variant}`} role="tablist" aria-label={label}>
       {entries.map((item, i) => (
         <button
           key={item.name || item.label}
@@ -430,7 +445,7 @@ function deliverFile({ url, fileName, save }) {
   }
 }
 
-function LeadForm({ file = BROCHURE, id = "enquire" }) {
+function LeadForm({ file = BROCHURE, id = "enquire", onSuccess }) {
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -510,6 +525,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     setSubmitted(true);
     setIsSubmitting(false)
     resetAll()
+    onSuccess?.()
     // deliverFile(file);
 
   } catch (error) {
@@ -617,7 +633,7 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
         <div className="form-success">
           <CheckCircle size={38} weight="light" />
           <h2 ref={success} tabIndex={-1}>
-            Thank you, {name.trim().split(" ")[0]}.
+            Thank you {name.trim().split(" ")[0]}.
           </h2>
           <p>
             Your enquiry has been successfully submitted. Our team will connect with you shortly to assist you with the project details and answer your questions.
@@ -650,6 +666,14 @@ function Amenities() {
     }, 450);
     return () => clearTimeout(t);
   }, [selected, expanded]);
+
+  // Mobile only: advance to the next tab every 8s. Restarts whenever the tab changes,
+  // so a manual tap gets a full 8s before the next auto-advance.
+  useEffect(() => {
+    if (!window.matchMedia("(max-width: 899px)").matches) return;
+    const t = setTimeout(() => select((selected + 1) % amenities.length), 8000);
+    return () => clearTimeout(t);
+  }, [selected]);
 
   return (
     <section className="amenities section-pad" id="amenities">
@@ -749,7 +773,6 @@ function Amenities() {
 function Neighbourhood() {
   const [category, setCategory] = useState(0);
   const [place, setPlace] = useState(0);
-  const [mapLoaded, setMapLoaded] = useState(false);
   const group = neighbourhoods[category];
   const selected = group.places[place];
   const directions = `https://www.google.com/maps/dir/?api=1&origin=${ORIGIN}&destination=${encodeURIComponent(selected.query)}&travelmode=driving`;
@@ -797,25 +820,13 @@ function Neighbourhood() {
         >
           <div className="map-and-detail">
             <div className="map-stage">
-              {mapLoaded ? (
-                <iframe
-                  key={selected.query}
-                  title={`Map search for ${selected.name}`}
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(selected.query)}&z=14&output=embed`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              ) : (
-                <div className="map-start">
-                  <MapPin size={38} weight="light" aria-hidden="true" />
-                  <h3>Explore {selected.name}.</h3>
-                  <p>Open the interactive Google map to see your selected destination.</p>
-                  <button type="button" className="outline-button" onClick={() => setMapLoaded(true)}>
-                    Load interactive map
-                  </button>
-                  <small>Loads a third-party map from Google.</small>
-                </div>
-              )}
+              <iframe
+                key={selected.query}
+                title={`Map search for ${selected.name}`}
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(selected.query)}&z=14&output=embed`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
             <div className="destination-detail" aria-live="polite">
               <div>
@@ -925,7 +936,7 @@ function Plans({ onDownloadClick }) {
               25
             </strong>
             <span className="wow fadeInUp" data-wow-delay="0.5s">
-              floors, up to
+              floors
             </span>
           </div>
         </div>
@@ -965,6 +976,42 @@ export default function Home() {
     observer.observe(panel);
     return () => observer.disconnect();
   }, []);
+
+  // Auto-prompt with the enquiry modal: first once the visitor scrolls past the hero,
+  // then 15s after every close, until a lead is submitted from any form.
+  const leadSubmitted = useRef(false);
+  const prompted = useRef(false);
+  const [heroPassed, setHeroPassed] = useState(false);
+  const [promptRetry, setPromptRetry] = useState(0);
+
+  useEffect(() => {
+    const hero = root.current.querySelector(".hero-scroll");
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+        setHeroPassed(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!heroPassed || enquiryFile || leadSubmitted.current) return;
+    const t = setTimeout(
+      () => {
+        // Don't interrupt someone already looking at the inline form; try again later.
+        if (root.current?.classList.contains("form-in-view")) {
+          setPromptRetry((n) => n + 1);
+          return;
+        }
+        prompted.current = true;
+        setEnquiryFile(BROCHURE);
+      },
+      prompted.current ? 15000 : 0
+    );
+    return () => clearTimeout(t);
+  }, [heroPassed, enquiryFile, promptRetry]);
 
   useGSAP(
     () => {
@@ -1156,9 +1203,13 @@ export default function Home() {
                       <strong>₹1.3 Cr</strong>
                       <span>onwards</span>
                     </div>
+                    <div>
+                      <strong>4.3 Acres</strong>
+                      <span>forest-themed central garden</span>
+                    </div>
                   </div>
                 </div>
-                <div className="nature-story hero-intro">
+                {/* <div className="desktop-view nature-story hero-intro">
                   <Leaf size={32} weight="thin" />
                   <h1>
                     A Little More Room for Nature.
@@ -1180,9 +1231,33 @@ export default function Home() {
                       forest-themed central park
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
-              <LeadForm />
+              <LeadForm onSuccess={() => (leadSubmitted.current = true)} />
+
+              {/* <div className="mobile-view nature-story hero-intro mt-5">
+                  <Leaf size={32} weight="thin" />
+                  <h1>
+                    A Little More Room for Nature.
+                    <br /> <em>A Lot More Room for Life. </em>
+                  </h1>
+                  <div className="space-stat">
+                    <strong>
+                      75<span>%</span>
+                    </strong>
+                    <p>
+                      open space
+                    </p>
+                  </div>
+                  <div className="space-stat">
+                    <strong>
+                      4<span>Acre</span>
+                    </strong>
+                    <p>
+                      forest-themed central park
+                    </p>
+                  </div>
+                </div> */}
             </div>
             {/* <p className="film-caption">Concept film. Not the actual development.</p> */}
           </div>
@@ -1294,7 +1369,11 @@ export default function Home() {
                       </svg>
                     </button>
 
-                    <LeadForm file={enquiryFile} id="enquire-modal" />
+                    <LeadForm
+                      file={enquiryFile}
+                      id="enquire-modal"
+                      onSuccess={() => (leadSubmitted.current = true)}
+                    />
                   </div>
                 </div>
               )}

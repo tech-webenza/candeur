@@ -167,7 +167,7 @@ img {
     display: block;
   }
   .mobile-view {
-    display: none;
+    display: none !important;
   }
 }
 

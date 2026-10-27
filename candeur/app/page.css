@@ -505,16 +505,22 @@ body.site-menu-open {
   display: flex;
   justify-content: space-between;
   gap: 3%;
-  max-width: 65%;
+  max-width: 95%;
   margin-top: 6%;
   padding-top: 2%;
   border-top: 1px solid #5a7165;
 }
 
+.hero-intro {
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
 .hero-stats strong {
   display: block;
   font-family: var(--serif);
-  font-size: clamp(36px, 3.4vw, 64px);
+  font-size: clamp(36px, 3vw, 64px);
   line-height: normal;
   font-weight: 400;
   letter-spacing: -1.524px;
@@ -2373,7 +2379,10 @@ div#enquire-modal {
 
   .trust-visual-carousel .trust-visual__tag {
     z-index: 2;
-    display: none;
+    /* display: none; */
+    left: 12px;
+    bottom: 12px;
+    font-size: 4.5vw;
   }
 
   .trust-figures strong>span {
@@ -2489,7 +2498,7 @@ div#enquire-modal {
   }
 
   /* hero */
-  .nature-story {
+  .desktop-view.nature-story.hero-intro {
     display: none;
   }
 
@@ -2502,6 +2511,10 @@ div#enquire-modal {
   .lead-panel select {
     height: 12.5vw;
   }
+  .hero-location svg, .nature-story svg {
+    width: 3.5vw;
+    height: 3.5vw;
+}
 }
 
 @media (max-width: 479px) {
