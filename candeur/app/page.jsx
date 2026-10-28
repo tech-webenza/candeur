@@ -340,7 +340,7 @@ const PRICE_RANGES = [
   "₹1.3 Cr – ₹1.5 Cr",
   "₹1.6 Cr – ₹1.8 Cr",
   "₹1.9 Cr – ₹2 Cr",
-  "<₹2 Cr",
+  ">₹2 Cr",
 ];
 
 function Brand({ light = false }) {
