@@ -401,7 +401,7 @@ body.site-menu-open {
 /* —— Hero (keep scroll animation structure) —— */
 
 .hero-scroll {
-  height: 280svh;
+  height: auto;
   /* min-height: 1180px; */
   position: relative;
   color: var(--paper);
@@ -418,9 +418,7 @@ body.site-menu-open {
 .hero-stage {
   height: 150svh;
   /* min-height: 750px; */
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+  position: relative;
   overflow: hidden;
   z-index: 1;
 }

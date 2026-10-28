@@ -49,7 +49,7 @@ const amenities = [
     title: "Your Own Little Escape into Nature.",
     copy: " Discover thoughtfully planned green spaces that turn simple outdoor moments into something special.",
     items: [
-      "4-acre forest-themed Central Park",
+      "4.3 acres forest-themed Central Park",
       "17-ft elevated canopy walkway",
       "Dedicated green spine connecting all towers",
       "Landscaped gardens and outdoor relaxation zones",
@@ -695,7 +695,7 @@ function Amenities() {
             A World of Experiences. <em>Right at Home. </em>
           </h2>
           <p className="wow fadeInUp" data-wow-delay="0.4s">
-            A 1,35,000 sq. ft. clubhouse. 40+ outdoor amenities.
+            A 136,000 sq. ft. clubhouse. 40+ outdoor amenities.
             <br /> Every reason to look forward to coming home.
           </p>
         </div>
@@ -1077,23 +1077,6 @@ export default function Home() {
         const tick = (t) => lenis.raf(t * 1000);
         gsap.ticker.add(tick);
         gsap.ticker.lagSmoothing(0);
-        let next = 1;
-        const loader = async () => {
-          while (!disposed && next < 56) await load(next++);
-        };
-        Promise.all(Array.from({ length: 4 }, loader));
-        ScrollTrigger.create({
-          trigger: ".hero-scroll",
-          start: "top top",
-          end: "bottom 70%",
-          onUpdate: ({ progress }) => {
-            const frame = Math.round(progress * 55);
-            if (frame !== target) {
-              target = frame;
-              draw();
-            }
-          },
-        });
         gsap.from(".hero-intro > *", {
           y: 18,
           opacity: 0.3,
@@ -1114,26 +1097,6 @@ export default function Home() {
           lenis.destroy();
         };
       });
-
-      mm.add(
-        "(min-width: 900px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          gsap.set(".nature-story", { autoAlpha: 0, y: 35, visibility: "hidden" });
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: ".hero-scroll",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 0.45,
-                invalidateOnRefresh: true,
-              },
-            })
-            .to(".hero-intro", { autoAlpha: 0, y: -40, duration: 0.35, ease: "none" }, 0.12)
-            .to(".nature-story", { autoAlpha: 1, y: 0, visibility: "visible", duration: 0.4, ease: "none" }, 0.47)
-            .to({}, { duration: 0.13 });
-        }
-      );
 
       document.fonts.ready.then(() => {
         if (!disposed) ScrollTrigger.refresh();
@@ -1165,7 +1128,7 @@ export default function Home() {
               <canvas
                 ref={canvas}
                 role="img"
-                aria-label="Illustrative nature film that progresses with scrolling"
+                aria-label="Illustrative view of the forest-themed landscape"
               />
               <div className="hero-shade" />
             </div>
@@ -1188,7 +1151,7 @@ export default function Home() {
                   </h1>
                   <p className="hero-description">
                     A new chapter of expansive living.
-                    <br /> Coming soon. .
+                    <br /> Coming soon.
                   </p>
                   <div className="hero-stats">
                     <div>
