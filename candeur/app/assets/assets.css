@@ -1,0 +1,278 @@
+/* Client downloads page (/assets). Every rule is scoped under .client-assets. */
+
+.client-assets {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.client-assets__hero {
+  position: relative;
+  padding: 40px 0 72px;
+  color: var(--paper);
+  background:
+    linear-gradient(63deg, rgba(13, 36, 27, 0.92) 34%, rgba(13, 36, 27, 0.6) 75%),
+    url("/candeur/images/canopy.webp") center / cover,
+    var(--deep);
+}
+
+.client-assets__logo {
+  display: inline-block;
+  line-height: 0;
+  margin-bottom: 72px;
+}
+
+.client-assets__logo img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
+
+.client-assets__eyebrow {
+  margin-bottom: 14px !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c1d1ae;
+}
+
+.client-assets__hero h1 {
+  font-size: clamp(40px, 4.4vw, 72px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.client-assets__intro {
+  max-width: 620px;
+  margin-top: 18px !important;
+  color: rgba(245, 244, 237, 0.86);
+  font-size: clamp(16px, 1.15vw, 19px) !important;
+}
+
+.client-assets__body {
+  flex: 1;
+  padding: 64px 0 100px;
+}
+
+.client-assets__body .delta-container {
+  max-width: 1080px;
+}
+
+.client-assets__group+.client-assets__group {
+  margin-top: 56px;
+}
+
+.client-assets__group h2 {
+  margin-bottom: 18px;
+  font-size: clamp(28px, 2.4vw, 40px);
+  letter-spacing: -0.02em;
+}
+
+.client-assets__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.client-assets__item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.client-assets__icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  background: var(--sage);
+  color: var(--forest);
+}
+
+.client-assets__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.client-assets__name {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.6vw, 26px);
+  line-height: 1.25;
+  color: var(--forest);
+}
+
+.client-assets__meta {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.client-assets__download {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  background: var(--red);
+  color: #fff;
+  transition: background 0.2s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.client-assets__download:hover {
+  background: #7d3126;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(20, 43, 34, 0.18);
+}
+
+.client-assets__download:active {
+  transform: scale(0.96);
+}
+
+.client-assets__download:focus-visible {
+  outline: 2px solid #b88443;
+  outline-offset: 3px;
+}
+
+.client-assets__download.is-disabled {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  transform: none;
+  box-shadow: none;
+}
+
+.client-assets__item.is-unavailable .client-assets__icon,
+.client-assets__item.is-unavailable .client-assets__name {
+  opacity: 0.55;
+}
+
+.client-assets__item.is-unavailable .client-assets__meta {
+  color: var(--red);
+}
+
+.client-assets__notice {
+  color: var(--muted);
+}
+
+.client-assets__notice--panel {
+  max-width: 620px;
+  padding: 40px;
+  background: #fffef9;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.client-assets__notice--panel svg {
+  color: var(--forest);
+  margin-bottom: 16px;
+}
+
+.client-assets__notice--panel h2 {
+  margin-bottom: 10px;
+  font-size: clamp(26px, 2.2vw, 36px);
+}
+
+.client-assets__notice--panel p {
+  color: var(--muted);
+  font-size: 16px !important;
+}
+
+.client-assets__retry {
+  display: flex;
+  margin-top: 22px;
+}
+
+.client-assets__footer {
+  padding: 28px 0;
+  background: var(--deep);
+  color: rgba(245, 244, 237, 0.75);
+  font-size: 14px;
+}
+
+.client-assets__footer .delta-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+@media (max-width: 767px) {
+  .client-assets__hero {
+    padding: 28px 0 52px;
+  }
+
+  .client-assets__logo {
+    margin-bottom: 48px;
+  }
+
+  .client-assets__logo img {
+    width: 130px;
+  }
+
+  .client-assets__body {
+    padding: 44px 0 70px;
+  }
+
+  .client-assets__body .delta-container,
+  .client-assets__hero .delta-container,
+  .client-assets__footer .delta-container {
+    width: auto;
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .client-assets__group+.client-assets__group {
+    margin-top: 44px;
+  }
+
+  .client-assets__item {
+    gap: 14px;
+    padding: 14px 0;
+  }
+
+  .client-assets__icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .client-assets__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .client-assets__download {
+    width: 48px;
+    height: 48px;
+  }
+
+  .client-assets__meta {
+    font-size: 13px;
+  }
+
+  .client-assets__notice--panel {
+    padding: 28px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-assets__download {
+    transition: none;
+  }
+
+  .client-assets__download:hover,
+  .client-assets__download:active {
+    transform: none;
+  }
+}

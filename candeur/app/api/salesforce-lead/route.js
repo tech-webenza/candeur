@@ -71,8 +71,8 @@ export async function POST(request) {
       term: "",
       subSource: "Google_Search",
       source: "Google",
-      project: "Twins",
-      channel: "Twins",
+      project: "Novo Gardenia",
+      channel: "Webenza",
       firstEnquirySource: "Google",
       whatsAppNumber: phone,
     };

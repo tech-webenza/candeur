@@ -49,7 +49,7 @@ const amenities = [
     title: "Your Own Little Escape into Nature.",
     copy: " Discover thoughtfully planned green spaces that turn simple outdoor moments into something special.",
     items: [
-      "4-acre forest-themed Central Park",
+      "4.3 acres forest-themed Central Park",
       "17-ft elevated canopy walkway",
       "Dedicated green spine connecting all towers",
       "Landscaped gardens and outdoor relaxation zones",
@@ -223,20 +223,20 @@ const floorPlans = [
     id: "fp1",
     src: "/candeur/images/figma/floor-plan-export.png",
     alt: "1,552 sq. ft. 3 BHK floor plan preview",
-    title: "Floor plans",
-    detail: "1550 - 2150 sq. ft. spaces",
-    file: { url: "/candeur/pdfs/plans/3bhk-1550-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1550-sqft.pdf", save: true },
+    title: "Master plans & Floor plans",
+    detail: "1575 - 2250 sq. ft. spaces",
+    file: { url: "/candeur/pdfs/plans/candeur-arbora-master-plan-floor-plans.pdf", fileName: "Candeur-Arbora-Master-Plan-and-Floor-Plans.pdf", save: true },
     // detail: "2 toilets | 2 balconies | 1 utility",
   },
-  {
-    id: "fp2",
-    src: "/candeur/images/figma/floor-plan-export.png",
-    alt: "Alternate 3 BHK floor plan preview",
-    title: "Master plans",
-    detail: "",
-    file: { url: "/candeur/pdfs/plans/3bhk-1565-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1565-sqft.pdf", save: true },
-    // detail: "3 toilets | 2 balconies | 1 utility",
-  },
+  // {
+  //   id: "fp2",
+  //   src: "/candeur/images/figma/floor-plan-export.png",
+  //   alt: "Alternate 3 BHK floor plan preview",
+  //   title: "Master plans",
+  //   detail: "",
+  //   file: { url: "/candeur/pdfs/plans/3bhk-1565-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1565-sqft.pdf", save: true },
+  //   // detail: "3 toilets | 2 balconies | 1 utility",
+  // },
   // {
   //   id: "fp3",
   //   src: "/candeur/images/figma/floor-plan-export.png",
@@ -337,10 +337,10 @@ const faqs = [
 ];
 
 const PRICE_RANGES = [
-  "₹1.3 Cr – ₹1.6 Cr",
-  "₹1.6 Cr – ₹2 Cr",
-  "₹2 Cr – ₹2.5 Cr",
-  "₹2.5 Cr+",
+  "₹1.3 Cr – ₹1.5 Cr",
+  "₹1.6 Cr – ₹1.8 Cr",
+  "₹1.9 Cr – ₹2 Cr",
+  ">₹2 Cr",
 ];
 
 function Brand({ light = false }) {
@@ -376,8 +376,23 @@ function EnquireLink({
 
 
 function Tabs({ label, entries, selected, onSelect, prefix, variant = "default" }) {
+  const row = useRef(null);
+
+  // Keep the active tab visible when the row scrolls horizontally (mobile).
+  useEffect(() => {
+    const el = row.current;
+    const btn = el?.children[selected];
+    if (!btn || el.scrollWidth <= el.clientWidth) return;
+    const r = el.getBoundingClientRect();
+    const b = btn.getBoundingClientRect();
+    el.scrollTo({
+      left: el.scrollLeft + (b.left - r.left) - (el.clientWidth - b.width) / 2,
+      behavior: "smooth",
+    });
+  }, [selected]);
+
   return (
-    <div className={`tab-row tab-row--${variant}`} role="tablist" aria-label={label}>
+    <div ref={row} className={`tab-row tab-row--${variant}`} role="tablist" aria-label={label}>
       {entries.map((item, i) => (
         <button
           key={item.name || item.label}
@@ -430,7 +445,7 @@ function deliverFile({ url, fileName, save }) {
   }
 }
 
-function LeadForm({ file = BROCHURE, id = "enquire" }) {
+function LeadForm({ file = BROCHURE, id = "enquire", onSuccess }) {
   const [submitted, setSubmitted] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -499,11 +514,20 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
     }
 
     // Only execute when Salesforce submission succeeds
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "candeur_kukataplly_form_submission",
+      form_name: "Get_the_first_look.",
+      button_name: "Get priority launch access",
+    });
+
     setError("");
     setSubmitted(true);
     setIsSubmitting(false)
     resetAll()
-    // deliverFile(file);
+    onSuccess?.()
+    // Only files marked `save` (the floor plans) are delivered; the brochure isn't available yet.
+    if (file?.save) deliverFile(file);
 
   } catch (error) {
     console.error("Lead submission error:", error);
@@ -610,17 +634,14 @@ function LeadForm({ file = BROCHURE, id = "enquire" }) {
         <div className="form-success">
           <CheckCircle size={38} weight="light" />
           <h2 ref={success} tabIndex={-1}>
-            Thank you, {name.trim().split(" ")[0]}.
+            Thank you {name.trim().split(" ")[0]}.
           </h2>
           <p>
-            {file.save ? "Your download has started." : "The brochure has opened in a new tab."}{" "}
-            <a href={file.url} target="_blank" rel="noopener noreferrer" download={file.save ? file.fileName : undefined}>
-              Didn’t get it? Click here.
-            </a>
+            Your enquiry has been successfully submitted. Our team will connect with you shortly to assist you with the project details and answer your questions.
           </p>
-          <button className="text-button" onClick={() => setSubmitted(false)}>
+          {/* <button className="text-button" onClick={() => setSubmitted(false)}>
             Back to enquiry
-          </button>
+          </button> */}
         </div>
       )}
       {/* <p className="demo-note">
@@ -647,6 +668,14 @@ function Amenities() {
     return () => clearTimeout(t);
   }, [selected, expanded]);
 
+  // Mobile only: advance to the next tab every 8s. Restarts whenever the tab changes,
+  // so a manual tap gets a full 8s before the next auto-advance.
+  useEffect(() => {
+    if (!window.matchMedia("(max-width: 899px)").matches) return;
+    const t = setTimeout(() => select((selected + 1) % amenities.length), 8000);
+    return () => clearTimeout(t);
+  }, [selected]);
+
   return (
     <section className="amenities section-pad" id="amenities">
       <div className="delta-container">
@@ -667,7 +696,7 @@ function Amenities() {
             A World of Experiences. <em>Right at Home. </em>
           </h2>
           <p className="wow fadeInUp" data-wow-delay="0.4s">
-            A 1,35,000 sq. ft. clubhouse. 40+ outdoor amenities.
+            A 136,000 sq. ft. clubhouse. 40+ outdoor amenities.
             <br /> Every reason to look forward to coming home.
           </p>
         </div>
@@ -745,7 +774,6 @@ function Amenities() {
 function Neighbourhood() {
   const [category, setCategory] = useState(0);
   const [place, setPlace] = useState(0);
-  const [mapLoaded, setMapLoaded] = useState(false);
   const group = neighbourhoods[category];
   const selected = group.places[place];
   const directions = `https://www.google.com/maps/dir/?api=1&origin=${ORIGIN}&destination=${encodeURIComponent(selected.query)}&travelmode=driving`;
@@ -793,25 +821,13 @@ function Neighbourhood() {
         >
           <div className="map-and-detail">
             <div className="map-stage">
-              {mapLoaded ? (
-                <iframe
-                  key={selected.query}
-                  title={`Map search for ${selected.name}`}
-                  src={`https://maps.google.com/maps?q=${encodeURIComponent(selected.query)}&z=14&output=embed`}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              ) : (
-                <div className="map-start">
-                  <MapPin size={38} weight="light" aria-hidden="true" />
-                  <h3>Explore {selected.name}.</h3>
-                  <p>Open the interactive Google map to see your selected destination.</p>
-                  <button type="button" className="outline-button" onClick={() => setMapLoaded(true)}>
-                    Load interactive map
-                  </button>
-                  <small>Loads a third-party map from Google.</small>
-                </div>
-              )}
+              <iframe
+                key={selected.query}
+                title={`Map search for ${selected.name}`}
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(selected.query)}&z=14&output=embed`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
             </div>
             <div className="destination-detail" aria-live="polite">
               <div>
@@ -921,7 +937,7 @@ function Plans({ onDownloadClick }) {
               25
             </strong>
             <span className="wow fadeInUp" data-wow-delay="0.5s">
-              floors, up to
+              floors
             </span>
           </div>
         </div>
@@ -961,6 +977,42 @@ export default function Home() {
     observer.observe(panel);
     return () => observer.disconnect();
   }, []);
+
+  // Auto-prompt with the enquiry modal: first once the visitor scrolls past the hero,
+  // then 15s after every close, until a lead is submitted from any form.
+  const leadSubmitted = useRef(false);
+  const prompted = useRef(false);
+  const [heroPassed, setHeroPassed] = useState(false);
+  const [promptRetry, setPromptRetry] = useState(0);
+
+  useEffect(() => {
+    const hero = root.current.querySelector(".hero-scroll");
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+        setHeroPassed(true);
+        observer.disconnect();
+      }
+    });
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!heroPassed || enquiryFile || leadSubmitted.current) return;
+    const t = setTimeout(
+      () => {
+        // Don't interrupt someone already looking at the inline form; try again later.
+        if (root.current?.classList.contains("form-in-view")) {
+          setPromptRetry((n) => n + 1);
+          return;
+        }
+        prompted.current = true;
+        setEnquiryFile(BROCHURE);
+      },
+      prompted.current ? 15000 : 0
+    );
+    return () => clearTimeout(t);
+  }, [heroPassed, enquiryFile, promptRetry]);
 
   useGSAP(
     () => {
@@ -1005,7 +1057,7 @@ export default function Home() {
             resolve();
           };
           image.onerror = resolve;
-          image.src = `/candeur/media/hero-frames/frame-${String(i + 1).padStart(3, "0")}.webp`;
+          image.src = "/candeur/images/hero/candeur-arbora-hero.webp";
         });
 
       load(0);
@@ -1026,23 +1078,6 @@ export default function Home() {
         const tick = (t) => lenis.raf(t * 1000);
         gsap.ticker.add(tick);
         gsap.ticker.lagSmoothing(0);
-        let next = 1;
-        const loader = async () => {
-          while (!disposed && next < 56) await load(next++);
-        };
-        Promise.all(Array.from({ length: 4 }, loader));
-        ScrollTrigger.create({
-          trigger: ".hero-scroll",
-          start: "top top",
-          end: "bottom 70%",
-          onUpdate: ({ progress }) => {
-            const frame = Math.round(progress * 55);
-            if (frame !== target) {
-              target = frame;
-              draw();
-            }
-          },
-        });
         gsap.from(".hero-intro > *", {
           y: 18,
           opacity: 0.3,
@@ -1063,26 +1098,6 @@ export default function Home() {
           lenis.destroy();
         };
       });
-
-      mm.add(
-        "(min-width: 900px) and (prefers-reduced-motion: no-preference)",
-        () => {
-          gsap.set(".nature-story", { autoAlpha: 0, y: 35, visibility: "hidden" });
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: ".hero-scroll",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 0.45,
-                invalidateOnRefresh: true,
-              },
-            })
-            .to(".hero-intro", { autoAlpha: 0, y: -40, duration: 0.35, ease: "none" }, 0.12)
-            .to(".nature-story", { autoAlpha: 1, y: 0, visibility: "visible", duration: 0.4, ease: "none" }, 0.47)
-            .to({}, { duration: 0.13 });
-        }
-      );
 
       document.fonts.ready.then(() => {
         if (!disposed) ScrollTrigger.refresh();
@@ -1114,7 +1129,7 @@ export default function Home() {
               <canvas
                 ref={canvas}
                 role="img"
-                aria-label="Illustrative nature film that progresses with scrolling"
+                aria-label="Illustrative view of the forest-themed landscape"
               />
               <div className="hero-shade" />
             </div>
@@ -1123,10 +1138,10 @@ export default function Home() {
                 <div className="hero-intro">
                   <p className="hero-location">
                     <MapPin size={17} aria-hidden="true" />
-                    Kukatpally, Hyderabad
+                    Candeur Arbora, Kukatpally
                   </p>
                   <h1 className="desktop-view">
-                    In the Heart of Kukatpally.
+                    In the Heart of<br/> Kukatpally.
                     <br />
                     <em>Rooted in Nature.</em>
                   </h1>
@@ -1137,7 +1152,6 @@ export default function Home() {
                   </h1>
                   <p className="hero-description">
                     A new chapter of expansive living.
-                    <br /> Coming soon. .
                   </p>
                   <div className="hero-stats">
                     <div>
@@ -1152,9 +1166,14 @@ export default function Home() {
                       <strong>₹1.3 Cr</strong>
                       <span>onwards</span>
                     </div>
+                    <div>
+                      <strong>4.3 Acres</strong>
+                      <span>forest-themed central garden</span>
+                    </div>
                   </div>
+                  <p className="hero-rera">TG RERA REGISTRATION NO: P02200011363</p>
                 </div>
-                <div className="nature-story hero-intro">
+                {/* <div className="desktop-view nature-story hero-intro">
                   <Leaf size={32} weight="thin" />
                   <h1>
                     A Little More Room for Nature.
@@ -1176,11 +1195,56 @@ export default function Home() {
                       forest-themed central park
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
-              <LeadForm />
+              <LeadForm onSuccess={() => (leadSubmitted.current = true)} />
+
+              {/* <div className="mobile-view nature-story hero-intro mt-5">
+                  <Leaf size={32} weight="thin" />
+                  <h1>
+                    A Little More Room for Nature.
+                    <br /> <em>A Lot More Room for Life. </em>
+                  </h1>
+                  <div className="space-stat">
+                    <strong>
+                      75<span>%</span>
+                    </strong>
+                    <p>
+                      open space
+                    </p>
+                  </div>
+                  <div className="space-stat">
+                    <strong>
+                      4<span>Acre</span>
+                    </strong>
+                    <p>
+                      forest-themed central park
+                    </p>
+                  </div>
+                </div> */}
             </div>
             {/* <p className="film-caption">Concept film. Not the actual development.</p> */}
+          </div>
+        </section>
+
+        <section className="skybridge section-pad" aria-label="Exclusive Skybridge">
+          <div className="delta-container">
+            <div className="skybridge-card">
+              <img
+                src="/candeur/images/skybridge/skybridge.webp"
+                alt="Illustrative aerial view of the elevated skybridge winding through the landscaped gardens"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="skybridge-copy">
+                <h2 className="wow fadeInUp" data-wow-delay="0.2s">
+                  Elevate your walks with our Exclusive Skybridge
+                </h2>
+                <p className="wow fadeInUp" data-wow-delay="0.3s">
+                  Up to 27 ft above the ground
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1290,7 +1354,11 @@ export default function Home() {
                       </svg>
                     </button>
 
-                    <LeadForm file={enquiryFile} id="enquire-modal" />
+                    <LeadForm
+                      file={enquiryFile}
+                      id="enquire-modal"
+                      onSuccess={() => (leadSubmitted.current = true)}
+                    />
                   </div>
                 </div>
               )}
