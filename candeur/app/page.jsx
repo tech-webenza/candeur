@@ -223,20 +223,20 @@ const floorPlans = [
     id: "fp1",
     src: "/images/figma/floor-plan-export.png",
     alt: "1,552 sq. ft. 3 BHK floor plan preview",
-    title: "Floor plans",
-    detail: "1550 - 2150 sq. ft. spaces",
-    file: { url: "/pdfs/plans/3bhk-1550-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1550-sqft.pdf", save: true },
+    title: "Master plans & Floor plans",
+    detail: "1575 - 2250 sq. ft. spaces",
+    file: { url: "/pdfs/plans/candeur-arbora-master-plan-floor-plans.pdf", fileName: "Candeur-Arbora-Master-Plan-and-Floor-Plans.pdf", save: true },
     // detail: "2 toilets | 2 balconies | 1 utility",
   },
-  {
-    id: "fp2",
-    src: "/images/figma/floor-plan-export.png",
-    alt: "Alternate 3 BHK floor plan preview",
-    title: "Master plans",
-    detail: "",
-    file: { url: "/pdfs/plans/3bhk-1565-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1565-sqft.pdf", save: true },
-    // detail: "3 toilets | 2 balconies | 1 utility",
-  },
+  // {
+  //   id: "fp2",
+  //   src: "/images/figma/floor-plan-export.png",
+  //   alt: "Alternate 3 BHK floor plan preview",
+  //   title: "Master plans",
+  //   detail: "",
+  //   file: { url: "/pdfs/plans/3bhk-1565-sqft.pdf", fileName: "Candeur-Kukatpally-3BHK-1565-sqft.pdf", save: true },
+  //   // detail: "3 toilets | 2 balconies | 1 utility",
+  // },
   // {
   //   id: "fp3",
   //   src: "/images/figma/floor-plan-export.png",
@@ -526,7 +526,8 @@ function LeadForm({ file = BROCHURE, id = "enquire", onSuccess }) {
     setIsSubmitting(false)
     resetAll()
     onSuccess?.()
-    // deliverFile(file);
+    // Only files marked `save` (the floor plans) are delivered; the brochure isn't available yet.
+    if (file?.save) deliverFile(file);
 
   } catch (error) {
     console.error("Lead submission error:", error);
@@ -1056,7 +1057,7 @@ export default function Home() {
             resolve();
           };
           image.onerror = resolve;
-          image.src = `/media/hero-frames/frame-${String(i + 1).padStart(3, "0")}.webp`;
+          image.src = "/images/hero/candeur-arbora-hero.webp";
         });
 
       load(0);
@@ -1137,10 +1138,10 @@ export default function Home() {
                 <div className="hero-intro">
                   <p className="hero-location">
                     <MapPin size={17} aria-hidden="true" />
-                    Kukatpally, Hyderabad
+                    Candeur Arbora, Kukatpally
                   </p>
                   <h1 className="desktop-view">
-                    In the Heart of Kukatpally.
+                    In the Heart of<br/> Kukatpally.
                     <br />
                     <em>Rooted in Nature.</em>
                   </h1>
@@ -1151,7 +1152,6 @@ export default function Home() {
                   </h1>
                   <p className="hero-description">
                     A new chapter of expansive living.
-                    <br /> Coming soon.
                   </p>
                   <div className="hero-stats">
                     <div>
@@ -1171,6 +1171,7 @@ export default function Home() {
                       <span>forest-themed central garden</span>
                     </div>
                   </div>
+                  <p className="hero-rera">TG RERA REGISTRATION NO: P02200011363</p>
                 </div>
                 {/* <div className="desktop-view nature-story hero-intro">
                   <Leaf size={32} weight="thin" />
@@ -1223,6 +1224,27 @@ export default function Home() {
                 </div> */}
             </div>
             {/* <p className="film-caption">Concept film. Not the actual development.</p> */}
+          </div>
+        </section>
+
+        <section className="skybridge section-pad" aria-label="Exclusive Skybridge">
+          <div className="delta-container">
+            <div className="skybridge-card">
+              <img
+                src="/images/skybridge/skybridge.webp"
+                alt="Illustrative aerial view of the elevated skybridge winding through the landscaped gardens"
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="skybridge-copy">
+                <h2 className="wow fadeInUp" data-wow-delay="0.2s">
+                  Elevate your walks with our Exclusive Skybridge
+                </h2>
+                <p className="wow fadeInUp" data-wow-delay="0.3s">
+                  Up to 27 ft above the ground
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 

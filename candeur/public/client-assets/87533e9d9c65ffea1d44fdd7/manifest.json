@@ -1,0 +1,61 @@
+{
+  "title": "Your Arbora downloads",
+  "description": "Brochures, specifications and marketing creatives shared with you by Candeur. Tap the arrow beside any file to download it.",
+  "groups": [
+    {
+      "title": "Documents",
+      "items": [
+        {
+          "name": "Arbora Mini Brochure",
+          "file": "arbora-mini-brochure.pdf",
+          "downloadName": "Arbora-Mini-Brochure.pdf"
+        },
+        {
+          "name": "Arbora Main Brochure",
+          "file": "arbora-main-brochure.pdf",
+          "downloadName": "Arbora-Main-Brochure.pdf"
+        },
+        {
+          "name": "Channel Partner Incentive Program",
+          "file": "channel-partner-incentive-program.pdf",
+          "downloadName": "Channel-Partner-Incentive-Program.pdf"
+        },
+        {
+          "name": "Project Specifications Sheet",
+          "file": "project-specifications-sheet.pdf",
+          "downloadName": "Project-Specifications-Sheet.pdf"
+        }
+      ]
+    },
+    {
+      "title": "Marketing Creatives",
+      "items": [
+        {
+          "name": "Marketing Creative 01",
+          "file": "marketing-creative-01.jpg",
+          "downloadName": "Arbora-Marketing-Creative-01.jpg"
+        },
+        {
+          "name": "Marketing Creative 02",
+          "file": "marketing-creative-02.jpg",
+          "downloadName": "Arbora-Marketing-Creative-02.jpg"
+        },
+        {
+          "name": "Marketing Creative 03",
+          "file": "marketing-creative-03.png",
+          "downloadName": "Arbora-Marketing-Creative-03.png"
+        },
+        {
+          "name": "Marketing Creative 04",
+          "file": "marketing-creative-04.png",
+          "downloadName": "Arbora-Marketing-Creative-04.png"
+        },
+        {
+          "name": "Marketing Creative 05",
+          "file": "marketing-creative-05.png",
+          "downloadName": "Arbora-Marketing-Creative-05.png"
+        }
+      ]
+    }
+  ]
+}

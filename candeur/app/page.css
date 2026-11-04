@@ -12,8 +12,8 @@
   width: 100%;
 }
 
-.disabled-btn{
-   opacity: 0.5;
+.disabled-btn {
+  opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -54,6 +54,55 @@
     \**********************************************************************************************************************************************************************************************************************************************************/
 .section-pad {
   padding: 6% 0;
+}
+
+.skybridge-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  aspect-ratio: 1690 / 717;
+  overflow: hidden;
+  color: #fff;
+}
+
+.skybridge-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 70%;
+}
+
+.skybridge-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(54deg, rgba(13, 36, 27, 0.9) 13.475%, rgba(13, 36, 27, 0.45) 74%);
+}
+
+.skybridge-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 4%;
+  width: 100%;
+  padding: 0 3.55% 4.2%;
+}
+
+.skybridge-copy h2 {
+  max-width: 67%;
+  font-size: clamp(44px, 4vw, 76px);
+  line-height: 117%;
+  text-wrap: wrap;
+  letter-spacing: -0.02em;
+}
+
+body.site-body .skybridge-copy p {
+  flex-shrink: 0;
+  opacity: 0.8;
 }
 
 .section-heading {
@@ -432,7 +481,7 @@ body.site-menu-open {
 .hero-film {
   position: absolute;
   inset: 0;
-  background: url("/media/hero-frames/frame-001.webp") center / cover;
+  background: url("/images/hero/candeur-arbora-hero.webp") center / cover;
 }
 
 .hero-film canvas {
@@ -444,9 +493,10 @@ body.site-menu-open {
 .hero-shade {
   position: absolute;
   inset: 0;
-  background:
+  /* background:
     linear-gradient(63deg, rgba(13, 36, 27, 0.85) 34%, rgba(13, 36, 27, 0.33) 61%, rgba(13, 36, 27, 0.2) 75%),
-    linear-gradient(0deg, rgba(13, 36, 27, 0.66), transparent 70%);
+    linear-gradient(0deg, rgba(13, 36, 27, 0.66), transparent 70%); */
+  background: linear-gradient(63deg, rgba(13, 36, 27, 0.90) 13.47%, rgba(13, 36, 27, 0.45) 74%);
 }
 
 .hero-layout {
@@ -455,7 +505,7 @@ body.site-menu-open {
   /* grid-template-columns: minmax(0, 1.4fr) minmax(320px, 0.85fr); */
   grid-gap: 4vw;
   gap: 4vw;
-  align-items: baseline;
+  /* align-items: baseline; */
   min-height: 100%;
   padding: calc(7% + 70px) 0 6%;
 }
@@ -509,10 +559,18 @@ body.site-menu-open {
   border-top: 1px solid #5a7165;
 }
 
+.hero-rera {
+  margin-top: 4%;
+  font-size: 1vw !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
 .hero-intro {
-    transform: none !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .hero-stats strong {
@@ -1170,7 +1228,7 @@ section#location h2 {
   gap: 48px;
   align-items: center;
   margin-bottom: 9%;
-  display: none;
+  /* display: none; */
 }
 
 .plan-preview-copy h3 {
@@ -1268,7 +1326,7 @@ section#location h2 {
   font-weight: 700;
   margin-bottom: 1%;
   color: rgba(0, 0, 0, 1);
-  font-family:var(--serif);
+  font-family: var(--serif);
 }
 
 .floorplan-meta__detail {
@@ -1740,7 +1798,7 @@ section#residences .section-heading p {
 }
 
 .plan-preview-copy {
-  width: 80%;
+  width: 85%;
 }
 
 .floorplan-meta__title {
@@ -1897,6 +1955,27 @@ div#enquire-modal {
     padding: 50px 0;
   }
 
+  .skybridge-card {
+    aspect-ratio: auto;
+    min-height: 460px;
+  }
+
+  .skybridge-card::after {
+    background: linear-gradient(0deg, rgba(13, 36, 27, 0.9) 15%, rgba(13, 36, 27, 0.35) 75%);
+  }
+
+  .skybridge-copy {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 28px 24px;
+  }
+
+  .skybridge-copy h2 {
+    max-width: 100%;
+    font-size: clamp(32px, 7vw, 48px);
+  }
+
   .tab-row {
     display: flex;
     border-bottom: 1px solid var(--line);
@@ -2016,6 +2095,12 @@ div#enquire-modal {
 
   .hero-stats>div {
     min-width: 28%;
+  }
+
+  .hero-rera {
+    margin-top: -15px;
+    margin-bottom: 30px;
+    font-size: 12px !important;
   }
 
   .lead-panel {
@@ -2509,10 +2594,12 @@ div#enquire-modal {
   .lead-panel select {
     height: 12.5vw;
   }
-  .hero-location svg, .nature-story svg {
+
+  .hero-location svg,
+  .nature-story svg {
     width: 3.5vw;
     height: 3.5vw;
-}
+  }
 }
 
 @media (max-width: 479px) {

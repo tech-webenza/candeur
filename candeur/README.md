@@ -23,6 +23,18 @@ pnpm build
 
 The static website is exported to `out/`. Upload the contents of that directory to a static host at the domain root. To preview the exported website locally, run `python3 -m http.server 4173 --directory out` and open http://localhost:4173. Do not use `next start`: this project uses static export.
 
+## Private client downloads (`/assets`)
+
+An unlisted download page for clients, opened by scanning a QR code. It is not linked from anywhere on the site and is marked `noindex`.
+
+- Files and their list live in `public/client-assets/<key>/`. `manifest.json` in that folder controls the titles, groups and download names shown on the page.
+- The QR code points to `https://<domain>/assets#<key>`. Without the key the page shows only a "scan your QR code" message, and the key never appears in the site's HTML or JavaScript.
+- **Add or replace a file:** copy it into the key folder, then add an entry under a group in `manifest.json`: `{ "name": "Display name", "file": "file-name.pdf", "downloadName": "Saved-As.pdf" }`. File type and size are detected automatically. Rebuild and redeploy.
+- **Generate the QR code:** `node scripts/generate-assets-qr.mjs https://www.your-domain.com`. `npm run qr:assets -- <url>` also works, except in Windows PowerShell, which drops extra flags. Add the subfolder if the site is deployed under one. This writes `qr-codes/candeur-client-assets-qr.svg`, which is git-ignored and never published. Send it to the client directly.
+- **Revoke access:** rename the key folder to a new random string, redeploy and generate a new QR code. Old QR codes then show "This link is no longer active".
+- The host must serve `/assets` from `assets.html` (clean URLs; most static hosts do this). If yours doesn't, add `--html` to the QR command so it links to `/assets.html#<key>` instead.
+- This keeps the link unguessable, but it is not a login: anyone who has the QR code or the full link can download the files.
+
 ## Included
 
 - `app/page.jsx`: page content, form demo, amenity tabs, neighbourhood selector, residence selector, FAQs and scroll animation.

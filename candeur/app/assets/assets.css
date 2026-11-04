@@ -1,0 +1,209 @@
+/* Client downloads page (/assets). Every rule is scoped under .client-assets. */
+
+.client-assets {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.client-assets__bar {
+  padding: 22px 0;
+  background: var(--deep);
+}
+
+.client-assets__logo {
+  display: inline-block;
+  line-height: 0;
+}
+
+.client-assets__logo img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
+
+.client-assets__body {
+  flex: 1;
+  padding: 56px 0 96px;
+}
+
+.client-assets__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.client-assets__card {
+  display: flex;
+  flex-direction: column;
+  background: #fffef9;
+  border: 1px solid var(--line);
+}
+
+.client-assets__preview {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--sage);
+}
+
+.client-assets__preview img,
+.client-assets__preview video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.client-assets__preview video {
+  background: var(--deep);
+}
+
+.client-assets__doc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  color: var(--forest);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.client-assets__info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-top: 1px solid var(--line);
+}
+
+.client-assets__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.client-assets__name {
+  font-family: var(--serif);
+  font-size: clamp(20px, 1.5vw, 24px);
+  line-height: 1.25;
+  color: var(--forest);
+  overflow-wrap: anywhere;
+}
+
+.client-assets__meta {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.client-assets__download {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  background: var(--red);
+  color: #fff;
+  transition: background 0.2s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.client-assets__download:hover {
+  background: #7d3126;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(20, 43, 34, 0.18);
+}
+
+.client-assets__download:active {
+  transform: scale(0.96);
+}
+
+.client-assets__download:focus-visible {
+  outline: 2px solid #b88443;
+  outline-offset: 3px;
+}
+
+.client-assets__footer {
+  padding: 28px 0;
+  background: var(--deep);
+  color: rgba(245, 244, 237, 0.75);
+  font-size: 14px;
+}
+
+.client-assets__footer .delta-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+@media (max-width: 1099px) {
+  .client-assets__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .client-assets__bar {
+    padding: 18px 0;
+  }
+
+  .client-assets__logo img {
+    width: 130px;
+  }
+
+  .client-assets__body {
+    padding: 24px 0 56px;
+  }
+
+  .client-assets__body .delta-container,
+  .client-assets__bar .delta-container,
+  .client-assets__footer .delta-container {
+    width: auto;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .client-assets__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .client-assets__info {
+    gap: 14px;
+    padding: 14px 16px;
+  }
+
+  .client-assets__download {
+    width: 48px;
+    height: 48px;
+  }
+
+  .client-assets__meta {
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-assets__download {
+    transition: none;
+  }
+
+  .client-assets__download:hover,
+  .client-assets__download:active {
+    transform: none;
+  }
+}
