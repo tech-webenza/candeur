@@ -78,7 +78,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(54deg, rgba(13, 36, 27, 0.9) 13.475%, rgba(13, 36, 27, 0.45) 74%);
+  background: linear-gradient(54deg, rgba(13, 36, 27, 0.75) 13.475%, rgba(13, 36, 27, 0.35) 74%);
 }
 
 .skybridge-copy {
@@ -481,7 +481,7 @@ body.site-menu-open {
 .hero-film {
   position: absolute;
   inset: 0;
-  background: url("/candeur/images/hero/candeur-arbora-hero.webp") center / cover;
+  background: url("/images/hero/candeur-arbora-hero.webp") center / cover;
 }
 
 .hero-film canvas {
@@ -496,7 +496,7 @@ body.site-menu-open {
   /* background:
     linear-gradient(63deg, rgba(13, 36, 27, 0.85) 34%, rgba(13, 36, 27, 0.33) 61%, rgba(13, 36, 27, 0.2) 75%),
     linear-gradient(0deg, rgba(13, 36, 27, 0.66), transparent 70%); */
-  background: linear-gradient(63deg, rgba(13, 36, 27, 0.90) 13.47%, rgba(13, 36, 27, 0.45) 74%);
+  background: linear-gradient(63deg, rgba(13, 36, 27, 0.75) 13.47%, rgba(13, 36, 27, 0.35) 74%);
 }
 
 .hero-layout {
