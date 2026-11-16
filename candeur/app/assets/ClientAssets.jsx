@@ -81,7 +81,7 @@ function AssetCard({ file, href, size }) {
       <div className="client-assets__info">
         <span className="client-assets__text">
           <span className="client-assets__name">{name}</span>
-          <span className="client-assets__meta">{meta}</span>
+          {/* <span className="client-assets__meta">{meta}</span> */}
         </span>
         <a
           className="client-assets__download"

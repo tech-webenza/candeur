@@ -465,7 +465,7 @@ body.site-menu-open {
 }
 
 .hero-stage {
-  height: 150svh;
+  height: 110svh;
   /* min-height: 750px; */
   position: relative;
   overflow: hidden;

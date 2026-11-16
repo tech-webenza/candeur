@@ -11,6 +11,7 @@ const MENU_LINKS = [
   { label: "FAQs", href: "#faqs" },
 ];
 
+const BROCHURE_PDF = "/client-assets/87533e9d9c65ffea1d44fdd7/Candeur%20Arbora%20Mini%20Brochure.pdf";
 
 export default function SiteHeader({ onBrochureClick }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -59,8 +60,14 @@ export default function SiteHeader({ onBrochureClick }) {
                 <img src="/images/logo.png" alt="Candeur" width={175} height={44} />
               </a>
             </div>
-            <a className="site-header__brochure cta" href="#" onClick={openBrochure} aria-haspopup="dialog">
-              Get Priority Launch Access
+            <a
+              className="site-header__brochure cta"
+              href={BROCHURE_PDF}
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+            >
+              Download Brochure
             </a>
           </div>
         </div>

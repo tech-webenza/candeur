@@ -9,6 +9,10 @@ const nextConfig = {
   reactStrictMode: true,
   output: "export",
   // basePath: "/candeur",
+  // The client's printed QR code opens /assets.html; the page itself lives at /assets.
+  async redirects() {
+    return [{ source: "/assets.html", destination: "/assets", permanent: false }];
+  },
 };
 
 export default nextConfig;

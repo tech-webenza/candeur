@@ -1,0 +1,174 @@
+/* Registration page (/register). Header, footer and page spacing come from assets.css;
+   the form mirrors the landing page lead form. Every rule is scoped under .register. */
+
+.register__panel {
+  width: 100%;
+  max-width: max(600px, 35vw);
+  margin: 0 auto;
+  padding: clamp(24px, 2.5vw, 48px);
+  background: var(--paper);
+  color: var(--forest);
+  box-shadow: 0 20px 60px rgba(9, 25, 16, 0.19);
+}
+
+.register__panel h1 {
+  margin-bottom: 5%;
+  font-size: clamp(28px, 2.2vw, 39px);
+  letter-spacing: -0.96px;
+}
+
+.register__panel h1:focus {
+  outline: none;
+}
+
+.register__panel fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.register__fields {
+  display: grid;
+  gap: 20px;
+}
+
+.register__panel label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: max(1.18vw, 16px);
+  font-weight: 500;
+}
+
+.register__input {
+  width: 100%;
+  height: max(3.5vw, 48px);
+  padding: 0 4%;
+  border: 1px solid #a4af9b;
+  border-radius: 0;
+  background: #fffef9;
+  box-shadow: none;
+  color: var(--forest);
+  font-size: max(1.18vw, 16px);
+  outline: none !important;
+}
+
+.register__input::placeholder {
+  color: #63705d;
+}
+
+.register__input:focus {
+  border-color: var(--forest);
+}
+
+.register__input[aria-invalid="true"] {
+  border-color: #9b2f25;
+}
+
+.register__phone {
+  display: flex;
+  align-items: center;
+  border: 1px solid #a4af9b;
+  background: #fffef9;
+}
+
+.register__phone:focus-within {
+  border-color: var(--forest);
+}
+
+.register__phone--invalid,
+.register__phone--invalid:focus-within {
+  border-color: #9b2f25;
+}
+
+.register__phone > span {
+  padding-left: 14px;
+  white-space: nowrap;
+}
+
+.register__phone .register__input {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+}
+
+body.site-body .register__error {
+  margin-top: 6px;
+  color: #9b2f25;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.register__form-error {
+  margin-top: 12px;
+  color: #9b2f25;
+}
+
+body.site-body .register__submit {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 64px;
+  margin-top: 22px;
+  padding: 15px 24px;
+  border: 0;
+  background: var(--red);
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.register__submit:hover {
+  background: #7d3126;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(20, 43, 34, 0.18);
+}
+
+.register__submit:active {
+  transform: scale(0.98);
+}
+
+.register__submit:focus-visible {
+  outline: 2px solid #b88443;
+  outline-offset: 3px;
+}
+
+.register__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.register__success {
+  min-height: 370px;
+}
+
+.register__success > svg {
+  margin-bottom: 24px;
+}
+
+.register__success p {
+  margin: 20px 0;
+}
+
+@media (max-width: 767px) {
+  .register__panel h1 {
+    margin-bottom: 10%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .register__submit {
+    transition: none;
+  }
+
+  .register__submit:hover,
+  .register__submit:active {
+    transform: none;
+  }
+}
