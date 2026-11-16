@@ -968,51 +968,22 @@ export default function Home() {
   // File the enquiry modal delivers on submit; null while the modal is closed.
   const [enquiryFile, setEnquiryFile] = useState(null);
 
-  useEffect(() => {
-    const panel = root.current.querySelector("#enquire");
-    const observer = new IntersectionObserver(
-      ([entry]) => root.current?.classList.toggle("form-in-view", entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(panel);
-    return () => observer.disconnect();
-  }, []);
-
-  // Auto-prompt with the enquiry modal: first once the visitor scrolls past the hero,
+  // Auto-prompt with the enquiry modal: first 5s after the page loads,
   // then 15s after every close, until a lead is submitted from any form.
   const leadSubmitted = useRef(false);
   const prompted = useRef(false);
-  const [heroPassed, setHeroPassed] = useState(false);
-  const [promptRetry, setPromptRetry] = useState(0);
 
   useEffect(() => {
-    const hero = root.current.querySelector(".hero-scroll");
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
-        setHeroPassed(true);
-        observer.disconnect();
-      }
-    });
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!heroPassed || enquiryFile || leadSubmitted.current) return;
+    if (enquiryFile || leadSubmitted.current) return;
     const t = setTimeout(
       () => {
-        // Don't interrupt someone already looking at the inline form; try again later.
-        if (root.current?.classList.contains("form-in-view")) {
-          setPromptRetry((n) => n + 1);
-          return;
-        }
         prompted.current = true;
         setEnquiryFile(BROCHURE);
       },
-      prompted.current ? 15000 : 0
+      prompted.current ? 15000 : 5000
     );
     return () => clearTimeout(t);
-  }, [heroPassed, enquiryFile, promptRetry]);
+  }, [enquiryFile]);
 
   useGSAP(
     () => {
@@ -1197,7 +1168,6 @@ export default function Home() {
                   </div>
                 </div> */}
               </div>
-              <LeadForm onSuccess={() => (leadSubmitted.current = true)} />
 
               {/* <div className="mobile-view nature-story hero-intro mt-5">
                   <Leaf size={32} weight="thin" />
@@ -1238,11 +1208,12 @@ export default function Home() {
               />
               <div className="skybridge-copy">
                 <h2 className="wow fadeInUp" data-wow-delay="0.2s">
-                  Elevate your walks with our Exclusive Skybridge
+                 A 136,000 sq. ft. Clubhouse<br/>
+                 To Elevate Life
                 </h2>
-                <p className="wow fadeInUp" data-wow-delay="0.3s">
+                {/* <p className="wow fadeInUp" data-wow-delay="0.3s">
                   Up to 27 ft above the ground
-                </p>
+                </p> */}
               </div>
             </div>
           </div>
