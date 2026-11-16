@@ -36,6 +36,13 @@ const ORIGIN = "17.4707404,78.4066345";
 // Opened in a new tab after any enquiry form other than "Download Plan".
 const BROCHURE = { url: "/candeur/pdfs/candeur-kukatpally-brochure.pdf" };
 
+// Downloaded after the enquiry form is submitted from the header "Download Brochure" button.
+const BROCHURE_DOWNLOAD = {
+  url: "/candeur/client-assets/87533e9d9c65ffea1d44fdd7/Candeur%20Arbora%20Mini%20Brochure.pdf",
+  fileName: "Candeur-Arbora-Brochure.pdf",
+  save: true,
+};
+
 
 
 
@@ -526,7 +533,7 @@ function LeadForm({ file = BROCHURE, id = "enquire", onSuccess }) {
     setIsSubmitting(false)
     resetAll()
     onSuccess?.()
-    // Only files marked `save` (the floor plans) are delivered; the brochure isn't available yet.
+    // Only files marked `save` (floor plans, header brochure) are delivered.
     if (file?.save) deliverFile(file);
 
   } catch (error) {
@@ -1088,7 +1095,10 @@ export default function Home() {
 
   return (
     <div ref={root} className="site">
-      <SiteHeader onBrochureClick={() => setEnquiryFile(BROCHURE)} />
+      <SiteHeader
+        onBrochureClick={() => setEnquiryFile(BROCHURE)}
+        onDownloadBrochureClick={() => setEnquiryFile(BROCHURE_DOWNLOAD)}
+      />
       <main>
         <section
           className="hero-scroll"
