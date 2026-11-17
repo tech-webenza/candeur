@@ -78,7 +78,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(54deg, rgba(13, 36, 27, 0.75) 13.475%, rgba(13, 36, 27, 0.35) 74%);
+  background: linear-gradient(54deg, rgba(13, 36, 27, 0.65) 13.475%, rgba(13, 36, 27, 0.2) 74%);
 }
 
 .skybridge-copy {
@@ -496,7 +496,7 @@ body.site-menu-open {
   /* background:
     linear-gradient(63deg, rgba(13, 36, 27, 0.85) 34%, rgba(13, 36, 27, 0.33) 61%, rgba(13, 36, 27, 0.2) 75%),
     linear-gradient(0deg, rgba(13, 36, 27, 0.66), transparent 70%); */
-  background: linear-gradient(63deg, rgba(13, 36, 27, 0.75) 13.47%, rgba(13, 36, 27, 0.35) 74%);
+  background: linear-gradient(63deg, rgba(13, 36, 27, 0.6) 13.47%, rgba(13, 36, 27, 0.2) 74%);
 }
 
 .hero-layout {
