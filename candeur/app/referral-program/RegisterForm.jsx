@@ -22,6 +22,23 @@ const PHONE_RE = /^[6-9]\d{9}$/;
 
 // Listed in page order: the first invalid field is the one that receives focus.
 const VALIDATORS = {
+  refName(value) {
+    const v = value.trim();
+    if (!v) return "Please enter the referee's full name.";
+    if (!NAME_RE.test(v)) return "Please enter a valid name (letters only, 2-60 characters).";
+    return "";
+  },
+  refPhone(value, all) {
+    if (!value) return "Please enter the referee's phone number.";
+    if (!PHONE_RE.test(value)) return "Please enter a valid 10-digit Indian mobile number.";
+    if (value === all.phone) return "The referee's number can't be the same as yours.";
+    return "";
+  },
+  relationship(value) {
+    // Optional field
+    if (value.trim().length > 50) return "Please keep this under 50 characters.";
+    return "";
+  },
   fullName(value) {
     const v = value.trim();
     if (!v) return "Please enter your full name.";
@@ -43,23 +60,6 @@ const VALIDATORS = {
     const v = value.trim();
     if (!v) return "Please enter your tower / unit number or booking ID.";
     if (v.length > 50) return "Please keep this under 50 characters.";
-    return "";
-  },
-  refName(value) {
-    const v = value.trim();
-    if (!v) return "Please enter the referee's full name.";
-    if (!NAME_RE.test(v)) return "Please enter a valid name (letters only, 2-60 characters).";
-    return "";
-  },
-  refPhone(value, all) {
-    if (!value) return "Please enter the referee's phone number.";
-    if (!PHONE_RE.test(value)) return "Please enter a valid 10-digit Indian mobile number.";
-    if (value === all.phone) return "The referee's number can't be the same as yours.";
-    return "";
-  },
-  relationship(value) {
-    // Optional field
-    if (value.trim().length > 50) return "Please keep this under 50 characters.";
     return "";
   },
   consent(value) {
@@ -193,20 +193,66 @@ export default function RegisterForm() {
     <div className="register__panel">
       <form onSubmit={submit} aria-labelledby="referral-title" noValidate>
         <fieldset disabled={!ready}>
-          <h1 id="referral-title">Referral Program</h1>
+          <h1 id="referral-title">Refer a Friend. Share the Joy of Owning<br/> a Candeur Home. </h1>
 
           <div className="register__section">
-            <h2>Your details</h2>
+            <h2>Your Friend&rsquo;s Details</h2>
+            <p className="register__section-note">Tell us about the friend/family/colleague you would like to refer.</p>
             <div className="register__fields">
               <div>
-                <label htmlFor="referral-fullName">Full Name*</label>
+                <label htmlFor="referral-refName">Name*</label>
+                <input
+                  {...fieldProps("refName")}
+                  className="register__input"
+                  required
+                  maxLength={60}
+                  placeholder="Name"
+                />
+                <FieldError field="refName" message={errors.refName} />
+              </div>
+              <div>
+                <label htmlFor="referral-refPhone">Phone Number*</label>
+                <div className={`register__phone ${errors.refPhone ? "register__phone--invalid" : ""}`}>
+                  <span>+91</span>
+                  <input
+                    {...fieldProps("refPhone")}
+                    className="register__input"
+                    required
+                    type="tel"
+                    inputMode="numeric"
+                    autoComplete="off"
+                    maxLength={10}
+                    placeholder="Phone Number"
+                  />
+                </div>
+                <FieldError field="refPhone" message={errors.refPhone} />
+              </div>
+              <div>
+                <label htmlFor="referral-relationship">Relationship to Referrer</label>
+                <input
+                  {...fieldProps("relationship")}
+                  className="register__input"
+                  maxLength={50}
+                  placeholder="Relationship to Referrer"
+                />
+                <FieldError field="relationship" message={errors.relationship} />
+              </div>
+            </div>
+          </div>
+
+          <div className="register__section">
+            <h2>Your Details (Referrer)</h2>
+            <p className="register__section-note">Already a Candeur customer? Please enter your details below.</p>
+            <div className="register__fields">
+              <div>
+                <label htmlFor="referral-fullName">Name*</label>
                 <input
                   {...fieldProps("fullName")}
                   className="register__input"
                   required
                   autoComplete="name"
                   maxLength={60}
-                  placeholder="Full Name"
+                  placeholder="Name"
                 />
                 <FieldError field="fullName" message={errors.fullName} />
               </div>
@@ -222,13 +268,13 @@ export default function RegisterForm() {
                     inputMode="numeric"
                     autoComplete="tel-national"
                     maxLength={10}
-                    placeholder="[ Mobile Number ]"
+                    placeholder="Phone Number"
                   />
                 </div>
                 <FieldError field="phone" message={errors.phone} />
               </div>
               <div>
-                <label htmlFor="referral-email">Email Address*</label>
+                <label htmlFor="referral-email">Email Id*</label>
                 <input
                   {...fieldProps("email")}
                   className="register__input"
@@ -236,7 +282,7 @@ export default function RegisterForm() {
                   type="email"
                   autoComplete="email"
                   maxLength={100}
-                  placeholder="Enter your email address"
+                  placeholder="Email Id"
                 />
                 <FieldError field="email" message={errors.email} />
               </div>
@@ -247,53 +293,9 @@ export default function RegisterForm() {
                   className="register__input"
                   required
                   maxLength={50}
-                  placeholder="Enter tower / unit no. or booking ID"
+                  placeholder="Tower / Unit No. (or Booking ID)"
                 />
                 <FieldError field="unitNo" message={errors.unitNo} />
-              </div>
-            </div>
-          </div>
-
-          <div className="register__section">
-            <h2>Referee&rsquo;s details</h2>
-            <div className="register__fields">
-              <div>
-                <label htmlFor="referral-refName">Referee&rsquo;s Full Name*</label>
-                <input
-                  {...fieldProps("refName")}
-                  className="register__input"
-                  required
-                  maxLength={60}
-                  placeholder="Referee's Full Name"
-                />
-                <FieldError field="refName" message={errors.refName} />
-              </div>
-              <div>
-                <label htmlFor="referral-refPhone">Referee&rsquo;s Phone Number*</label>
-                <div className={`register__phone ${errors.refPhone ? "register__phone--invalid" : ""}`}>
-                  <span>+91</span>
-                  <input
-                    {...fieldProps("refPhone")}
-                    className="register__input"
-                    required
-                    type="tel"
-                    inputMode="numeric"
-                    autoComplete="off"
-                    maxLength={10}
-                    placeholder="[ Mobile Number ]"
-                  />
-                </div>
-                <FieldError field="refPhone" message={errors.refPhone} />
-              </div>
-              <div>
-                <label htmlFor="referral-relationship">Relationship to Referee</label>
-                <input
-                  {...fieldProps("relationship")}
-                  className="register__input"
-                  maxLength={50}
-                  placeholder="e.g. Friend, Colleague, Relative"
-                />
-                <FieldError field="relationship" message={errors.relationship} />
               </div>
             </div>
           </div>

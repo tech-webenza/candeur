@@ -57,6 +57,13 @@
   letter-spacing: -0.4px;
 }
 
+.register__panel .register__section-note {
+  margin: calc(-1 * clamp(8px, 1vw, 12px)) 0 clamp(16px, 1.8vw, 22px);
+  font-size: max(1.05vw, 15px);
+  line-height: 1.5;
+  opacity: 0.75;
+}
+
 .register__fields {
   display: grid;
   gap: 20px;
